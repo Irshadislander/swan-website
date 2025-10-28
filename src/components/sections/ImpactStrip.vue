@@ -1,13 +1,15 @@
 <template>
-  <section class="bg-brand-50">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 grid sm:grid-cols-3 gap-6">
-      <Stat :value="5000" label="Students Reached"/>
-      <Stat :value="20"   label="Health Camps"/>
-      <Stat :value="150"  label="Active Volunteers"/>
+  <BaseSection background="bg-brand-50" padding="tight">
+    <div class="grid gap-6 sm:grid-cols-3">
+      <Stat v-for="stat in stats" :key="stat.label" :value="stat.value" :label="stat.label" />
     </div>
-  </section>
+  </BaseSection>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import BaseSection from '@/components/base/BaseSection.vue'
+import { landingCopy } from '@/lib/copy'
 import Stat from './Stat.vue'
+
+const stats = landingCopy.impact.stats
 </script>

@@ -2,32 +2,54 @@
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-brand-50 to-white"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center py-16 md:py-24">
-      <div>
-        <h1 class="heading-font text-4xl md:text-5xl font-bold text-brand-800">
-          Empowering Lives through Education and Health
+    <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+      <div class="max-w-xl space-y-6">
+        <h1 class="heading-font text-4xl font-bold text-brand-800 md:text-5xl">
+          {{ heroCopy.title }}
         </h1>
-        <p class="mt-4 text-grayx-600 max-w-xl">
-          Join us to uplift communities in Nepal with scholarships, health camps, and youth empowerment.
+        <p class="text-lg text-grayx-600">
+          {{ heroCopy.tagline }}
         </p>
-        <div class="mt-8 flex gap-3">
-          <RouterLink to="/donate" class="rounded-2xl px-6 py-3 bg-brand-600 text-white font-semibold hover:bg-brand-700">
-            Donate Now
-          </RouterLink>
-          <RouterLink to="/get-involved" class="rounded-2xl px-6 py-3 bg-white text-brand-700 ring-1 ring-grayx-200 hover:bg-grayx-50">
-            Join Us
-          </RouterLink>
+        <div class="flex flex-wrap gap-3">
+          <BaseButton :to="heroCopy.primaryCta.to">
+            {{ heroCopy.primaryCta.label }}
+          </BaseButton>
+          <BaseButton :to="heroCopy.secondaryCta.to" variant="ghost">
+            {{ heroCopy.secondaryCta.label }}
+          </BaseButton>
         </div>
       </div>
 
-      <div class="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] bg-grayx-100">
-        <img v-if="hasHero" src="/hero.jpg" alt="SWAN" class="object-cover w-full h-full" />
+      <div class="relative overflow-hidden rounded-2xl bg-grayx-100 shadow-lg">
+        <img
+          v-if="hasHero"
+          src="/hero.jpg"
+          :alt="heroCopy.imageAlt"
+          class="h-full w-full object-cover"
+        />
+        <div v-else class="flex h-full min-h-[280px] items-center justify-center bg-gradient-to-br from-mint-50 to-brand-100 text-brand-700">
+          Image coming soon
+        </div>
       </div>
     </div>
   </section>
 </template>
-<script setup>
-import { ref, onMounted } from 'vue'
+
+<script setup lang="ts">
+// Landing hero with primary CTAs and optional background image.
+import { onMounted, ref } from 'vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import { landingCopy } from '@/lib/copy'
+
+const heroCopy = landingCopy.hero
 const hasHero = ref(false)
-onMounted(() => { fetch('/hero.jpg', { method: 'HEAD' }).then(r => hasHero.value = r.ok) })
+
+onMounted(async () => {
+  try {
+    const response = await fetch('/hero.jpg', { method: 'HEAD' })
+    hasHero.value = response.ok
+  } catch {
+    hasHero.value = false
+  }
+})
 </script>

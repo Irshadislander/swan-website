@@ -1,39 +1,69 @@
 <template>
-  <footer class="bg-grayx-50 mt-20">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+  <footer class="mt-20 bg-grayx-50">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:px-6 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <div class="flex items-center gap-2">
           <span class="h-8 w-8 rounded-full bg-brand-600"></span>
-          <span class="heading-font font-semibold text-brand-800">SWAN</span>
+          <span class="heading-font font-semibold text-brand-800">{{ copy.brand }}</span>
         </div>
         <p class="mt-3 text-sm text-grayx-600">
-          Empowering lives through education and health in Nepal.
+          {{ copy.footer.mission }}
         </p>
       </div>
       <div>
-        <h4 class="font-semibold text-grayx-800">Explore</h4>
+        <h4 class="font-semibold text-grayx-800">{{ copy.footer.explore }}</h4>
         <ul class="mt-3 space-y-2 text-sm">
-          <li><RouterLink to="/about">About</RouterLink></li>
-          <li><RouterLink to="/causes">Causes</RouterLink></li>
-          <li><RouterLink to="/stories">Stories</RouterLink></li>
+          <li v-for="link in primaryLinks" :key="link.to">
+            <RouterLink :to="link.to" class="hover:text-brand-700">
+              {{ link.label }}
+            </RouterLink>
+          </li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold text-grayx-800">Get Involved</h4>
+        <h4 class="font-semibold text-grayx-800">{{ copy.footer.involved }}</h4>
         <ul class="mt-3 space-y-2 text-sm">
-          <li><RouterLink to="/get-involved">Volunteer</RouterLink></li>
-          <li><RouterLink to="/donate">Donate</RouterLink></li>
-          <li><RouterLink to="/contact">Contact</RouterLink></li>
+          <li v-for="link in secondaryLinks" :key="link.to">
+            <RouterLink :to="link.to" class="hover:text-brand-700">
+              {{ link.label }}
+            </RouterLink>
+          </li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold text-grayx-800">Newsletter</h4>
-        <div class="mt-3 flex gap-2">
-          <input class="flex-1 rounded-xl border border-grayx-200 px-3 py-2" placeholder="Email address" />
-          <button class="rounded-xl px-4 bg-mint-600 text-white">Join</button>
-        </div>
+        <h4 class="font-semibold text-grayx-800">{{ copy.footer.newsletter }}</h4>
+        <form class="mt-3 flex flex-col gap-3 sm:flex-row" @submit.prevent>
+          <BaseInput
+            v-model="newsletterEmail"
+            :placeholder="copy.footer.newsletterPlaceholder"
+            type="email"
+            class="flex-1"
+          />
+          <BaseButton type="submit">
+            {{ copy.footer.newsletterCta }}
+          </BaseButton>
+        </form>
       </div>
     </div>
-    <div class="border-t border-grayx-200 text-xs text-grayx-500 py-4 text-center">© 2025 SWAN</div>
+    <div class="border-t border-grayx-200 py-4 text-center text-xs text-grayx-500">
+      {{ copy.footer.copyright }}
+    </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+// Global footer with navigation links and newsletter opt-in placeholder.
+import { ref } from 'vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import { landingCopy } from '@/lib/copy'
+
+const copy = landingCopy
+const primaryLinks = copy.nav.links.slice(0, 3)
+const secondaryLinks = [
+  { label: 'Volunteer', to: '/get-involved' },
+  { label: copy.nav.donateLabel, to: '/donate' },
+  { label: 'Contact', to: '/contact' },
+]
+const newsletterEmail = ref('')
+</script>

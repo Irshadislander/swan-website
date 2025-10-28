@@ -1,13 +1,34 @@
 <template>
-  <section class="max-w-7xl mx-auto px-4 md:px-6 py-12">
-    <h2 class="heading-font text-3xl font-semibold text-brand-800">Stories</h2>
-    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article v-for="i in 3" :key="i" class="rounded-2xl bg-white p-6 shadow-sm">
-        <div class="h-36 bg-grayx-100 rounded-xl mb-3"></div>
-        <h3 class="font-semibold">A Life Changed {{ i }}</h3>
-        <p class="text-sm text-grayx-600 mt-1">Short excerpt from the field…</p>
-        <RouterLink to="/stories" class="text-brand-700 font-semibold mt-2 inline-block">Read more →</RouterLink>
+  <BaseSection>
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <h2 class="heading-font text-3xl font-semibold text-brand-800">
+        {{ copy.title }}
+      </h2>
+      <RouterLink to="/stories" class="text-sm font-semibold text-brand-700 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+        {{ copy.readMoreLabel }} →
+      </RouterLink>
+    </div>
+
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <article v-for="item in copy.items" :key="item.title" class="rounded-2xl border border-grayx-100 bg-white p-6 shadow-sm">
+        <div class="mb-3 h-36 rounded-xl bg-grayx-100"></div>
+        <h3 class="text-lg font-semibold text-brand-800">
+          {{ item.title }}
+        </h3>
+        <p class="mt-1 text-sm text-grayx-600">
+          {{ item.excerpt || copy.fallbackExcerpt }}
+        </p>
+        <RouterLink to="/stories" class="mt-3 inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-800">
+          {{ copy.readMoreLabel }} →
+        </RouterLink>
       </article>
     </div>
-  </section>
+  </BaseSection>
 </template>
+
+<script setup lang="ts">
+import BaseSection from '@/components/base/BaseSection.vue'
+import { landingCopy } from '@/lib/copy'
+
+const copy = landingCopy.stories
+</script>
