@@ -1,34 +1,24 @@
 <template>
-  <BaseSection>
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <h2 class="heading-font text-3xl font-semibold text-brand-800">
-        {{ copy.title }}
-      </h2>
-      <RouterLink to="/stories" class="text-sm font-semibold text-brand-700 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
-        {{ copy.readMoreLabel }} →
-      </RouterLink>
-    </div>
+  <section class="py-12">
+    <div class="container-irr space-y-6">
+      <div>
+        <p class="kicker mb-3">Field notes</p>
+        <h2 class="text-3xl font-bold text-brand-900">{{ copy.stories.title }}</h2>
+        <p class="text-slate-600">{{ copy.stories.body }}</p>
+      </div>
 
-    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <article v-for="item in copy.items" :key="item.title" class="rounded-2xl border border-grayx-100 bg-white p-6 shadow-sm">
-        <div class="mb-3 h-36 rounded-xl bg-grayx-100"></div>
-        <h3 class="text-lg font-semibold text-brand-800">
-          {{ item.title }}
-        </h3>
-        <p class="mt-1 text-sm text-grayx-600">
-          {{ item.excerpt || copy.fallbackExcerpt }}
-        </p>
-        <RouterLink to="/stories" class="mt-3 inline-flex items-center text-sm font-semibold text-brand-700 hover:text-brand-800">
-          {{ copy.readMoreLabel }} →
-        </RouterLink>
-      </article>
+      <div class="grid gap-6 md:grid-cols-3">
+        <article v-for="story in copy.stories.items" :key="story.to" class="card p-6 flex h-full flex-col">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-600">Story</p>
+          <h3 class="mt-3 text-xl font-semibold text-brand-900">{{ story.title }}</h3>
+          <p class="mt-4 text-sm text-slate-600 flex-1">{{ story.excerpt }}</p>
+          <RouterLink :to="story.to" class="mt-6 btn btn-primary">Read story</RouterLink>
+        </article>
+      </div>
     </div>
-  </BaseSection>
+  </section>
 </template>
 
 <script setup lang="ts">
-import BaseSection from '@/components/base/BaseSection.vue'
-import { landingCopy } from '@/lib/copy'
-
-const copy = landingCopy.stories
+import { copy } from "@lib/copy";
 </script>

@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.node.json",
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
@@ -9,10 +9,17 @@
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@views/*": ["src/views/*"],
+      "@shared/*": ["src/shared/*"],
+      "@lib/*": ["src/lib/*"],
+      "@router": ["src/router/index.ts"],
+      "@router/*": ["src/router/*"]
     },
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node", "vue"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,26 +1,29 @@
 <template>
-  <BaseSection>
-    <div class="flex flex-col gap-8">
-      <div class="max-w-2xl space-y-3">
-        <h2 class="heading-font text-3xl font-semibold text-brand-800">
-          {{ copy.title }}
-        </h2>
-        <p class="text-grayx-600">
-          {{ copy.description }}
-        </p>
+  <section class="py-12">
+    <div class="container-irr space-y-6">
+      <div>
+        <p class="kicker mb-3">Our focus areas</p>
+        <h2 class="text-3xl font-bold text-brand-900">Where we activate your support</h2>
+        <p class="text-slate-600">Each program is co-designed with local partners so funding stays accountable and responsive.</p>
       </div>
 
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <CauseCard v-for="item in copy.items" :key="item.title" :title="item.title" :description="item.description" />
+      <div class="grid gap-6 md:grid-cols-3">
+        <article v-for="cause in copy.causes" :key="cause.id" class="card p-6 flex h-full flex-col">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="text-xl font-semibold text-brand-900">{{ cause.title }}</h3>
+            <span class="pill bg-accent-100 border-accent-200">{{ cause.id.slice(0, 2).toUpperCase() }}</span>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">{{ cause.description }}</p>
+          <div class="mt-5 rounded-xl bg-accent-100 px-4 py-3 text-sm text-brand-800">
+            {{ cause.impact }}
+          </div>
+          <RouterLink :to="`/causes/${cause.id}`" class="mt-auto btn btn-primary">Explore program</RouterLink>
+        </article>
       </div>
     </div>
-  </BaseSection>
+  </section>
 </template>
 
 <script setup lang="ts">
-import BaseSection from '@/components/base/BaseSection.vue'
-import CauseCard from '@/components/sections/CauseCard.vue'
-import { landingCopy } from '@/lib/copy'
-
-const copy = landingCopy.causes
+import { copy } from "@lib/copy";
 </script>

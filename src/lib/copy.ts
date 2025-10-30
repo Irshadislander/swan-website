@@ -1,94 +1,235 @@
-/**
- * Centralised copy for the SWAN landing experience to simplify future i18n swaps.
- */
-export const landingCopy = {
-  brand: 'SWAN',
-  nav: {
+export const copy = {
+  brand: {
+    name: "SWAN",
+    tagline: "Students Working Against Neglect",
+  },
+  navTop: {
+    phoneLabel: "Call",
+    phone: "(+977) 01-555-1234",
+    emailLabel: "Email",
+    email: "hello@swan.org",
     links: [
-      { label: 'About', to: '/about' },
-      { label: 'Causes', to: '/causes' },
-      { label: 'Stories', to: '/stories' },
-      { label: 'Contact', to: '/contact' },
+      { label: "News", to: "/stories" },
+      { label: "Volunteer", to: "/get-involved" },
     ],
-    donateLabel: 'Donate',
   },
+  nav: {
+    primary: [
+      { label: "About", to: "/about" },
+      {
+        label: "Causes",
+        to: "/causes",
+        mega: {
+          columns: [
+            {
+              title: "Education",
+              items: [
+                { label: "Scholarships", to: "/causes/education#scholarships" },
+                { label: "Safe Classrooms", to: "/causes/education#classrooms" },
+              ],
+            },
+            {
+              title: "Health",
+              items: [
+                { label: "Mobile Camps", to: "/causes/health#camps" },
+                { label: "Women’s Wellness", to: "/causes/health#women" },
+              ],
+            },
+            {
+              title: "Women’s Leadership",
+              items: [
+                { label: "Co-ops", to: "/causes/empowerment#coops" },
+                { label: "Training", to: "/causes/empowerment#training" },
+              ],
+            },
+          ],
+          cta: { label: "Why SWAN?", to: "/why" },
+        },
+      },
+      { label: "Stories", to: "/stories" },
+      { label: "Contact", to: "/contact" },
+    ],
+  },
+  focusAreas: [
+    {
+      key: "education",
+      badge: "ED",
+      title: "Education Access",
+      blurb: "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
+      stat: "92% of SWAN scholars graduated secondary school last year.",
+      to: "/causes/education",
+    },
+    {
+      key: "health",
+      badge: "HE",
+      title: "Community Health",
+      blurb: "Mobile health camps and women’s wellness programs with trusted local nurses.",
+      stat: "9,500+ medical consultations provided in remote districts.",
+      to: "/causes/health",
+    },
+    {
+      key: "empowerment",
+      badge: "EM",
+      title: "Women’s Leadership",
+      blurb: "Micro-grants and trainings for women-led cooperatives focused on livelihoods.",
+      stat: "71 new women-led enterprises incubated since 2021.",
+      to: "/causes/empowerment",
+    },
+  ],
+  donateCta: { label: "Donate", to: "/donate" },
   hero: {
-    title: 'Empowering lives through education and health.',
-    tagline: 'Join us to uplift communities in Nepal with scholarships, health camps, and youth empowerment.',
-    primaryCta: { label: 'Donate Now', to: '/donate' },
-    secondaryCta: { label: 'Join Us', to: '/get-involved' },
-    imageAlt: 'SWAN community members smiling together.',
+    eyebrow: "Grassroots impact in Nepal",
+    title: "Because a student’s dream should never be out of reach.",
+    body: "SWAN teams travel deep into rural Nepal to deliver scholarships, women-led cooperatives, and mobile health camps — all in partnership with the communities we serve.",
+    primaryCta: { label: "Donate now", to: "/donate" },
+    secondaryCta: { label: "Why SWAN?", to: "/about" },
+    slides: [
+      {
+        id: "education",
+        headline: "Serve students in rural hills",
+        subtext: "Scholarships, tutoring, and safe classrooms keep young minds in school.",
+        image: "/images/hero-education.jpg",
+        cta: { label: "Support students", to: "/donate" },
+      },
+      {
+        id: "health",
+        headline: "Deliver mobile health camps",
+        subtext: "Volunteer nurses hike for hours so families can see a doctor close to home.",
+        image: "/images/hero-health.jpg",
+        cta: { label: "Fund a health camp", to: "/donate" },
+      },
+      {
+        id: "women",
+        headline: "Invest in women-led cooperatives",
+        subtext: "Micro-grants power women entrepreneurs to launch sustainable livelihoods.",
+        image: "/images/hero-women.jpg",
+        cta: { label: "Back women leaders", to: "/donate" },
+      },
+    ],
+    stats: [
+      { value: 5200, suffix: "+", label: "Students reached" },
+      { value: 26, suffix: "", label: "Health camps delivered" },
+      { value: 180, suffix: "+", label: "Active volunteers" },
+    ],
+    highlights: ["Scholarships", "Health access", "Women’s leadership"],
+    imageAlt: "Community members participating in a SWAN workshop",
   },
-  aboutStrip: {
-    eyebrow: 'Who we are',
-    title: 'Grassroots support for rural Nepal.',
-    description:
-      'Founded by students, SWAN partners with local leaders to deliver scholarships, women’s empowerment, and rural health camps with full transparency.',
-    cta: { label: 'Learn more', to: '/about' },
-    imageAlt: 'Students in Nepal participating in a SWAN program.',
+  about: {
+    title: "Rooted in local leadership.",
+    body: "Founded by Nepali students, SWAN invests directly in community-led ideas—from school rebuilding to maternal health clinics—so villages can thrive on their own terms.",
+    bullets: [
+      "Transparent reporting for every donor",
+      "Local coordinators in all seven program districts",
+      "Focus on education, health, and youth empowerment",
+    ],
+    cta: { label: "Meet the team", to: "/about" },
   },
-  causes: {
-    title: 'Our Causes',
-    description: 'We invest in long-term programs that create lasting change for families across Nepal.',
+  causes: [
+    {
+      id: "education",
+      title: "Education Access",
+      description: "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
+      impact: "92% of SWAN scholars graduated secondary school last year.",
+    },
+    {
+      id: "health",
+      title: "Community Health",
+      description: "Mobile health camps and women’s wellness programs with trusted local nurses.",
+      impact: "9,500+ medical consultations provided in remote districts.",
+    },
+    {
+      id: "empowerment",
+      title: "Women’s Leadership",
+      description: "Micro-grants and trainings for women-led cooperatives focused on livelihoods.",
+      impact: "71 new women-led enterprises incubated since 2021.",
+    },
+  ],
+  impact: {
+    title: "Why your donation matters",
+    headline: "Every rupee stays accountable.",
     items: [
       {
-        title: 'Scholarships & Mentorship',
-        description: 'Supporting first-generation students with tuition, mentoring, and career guidance.',
+        title: "Community owned",
+        description: "Programs are designed and audited with village committees so funding answers real priorities.",
       },
       {
-        title: 'Community Health Outreach',
-        description: 'Running mobile clinics, maternal health workshops, and access to essential care.',
+        title: "Data informed",
+        description: "We track attendance, graduation, and health outcomes to learn fast and adapt faster.",
       },
       {
-        title: 'Women & Youth Leadership',
-        description: 'Equipping young leaders with the tools to advocate for their communities.',
+        title: "Lean operations",
+        description: "90% of gifts go directly into programs thanks to a mostly volunteer leadership team.",
       },
     ],
   },
-  impact: {
-    stats: [
-      { value: 5200, label: 'Students Reached' },
-      { value: 24, label: 'Health Camps' },
-      { value: 180, label: 'Active Volunteers' },
-    ],
-  },
-  ctaBanner: {
-    title: 'Your support transforms lives — Join our mission.',
-    primaryCta: { label: 'Donate Now', to: '/donate' },
-    secondaryCta: { label: 'Become a Volunteer', to: '/get-involved' },
+  cta: {
+    title: "Join the SWAN collective",
+    body: "Monthly donors fund emergency scholarships and keep health camps on the road year-round.",
+    primaryCta: { label: "Give monthly", to: "/donate" },
+    secondaryCta: { label: "Volunteer", to: "/get-involved" },
   },
   stories: {
-    title: 'Stories from the field',
-    readMoreLabel: 'Read more',
-    fallbackExcerpt: 'Hear directly from the students and families whose lives are changing.',
+    title: "Stories from the field",
+    body: "See how communities are steering projects and changing what’s possible for the next generation.",
     items: [
       {
-        title: 'Mira’s journey to medical school',
-        excerpt: 'A scholarship and mentor pairing helped Mira continue her studies after a crisis.',
+        title: "A library rises in Lamjung",
+        excerpt: "Students and parents rebuilt their library after the 2015 quake—with SWAN covering materials and training.",
+        to: "/stories/library-in-lamjung",
       },
       {
-        title: 'Health camps reach remote villages',
-        excerpt: 'Volunteer doctors and nurses hiked for hours to treat 400 patients in a weekend.',
+        title: "Health on wheels",
+        excerpt: "Nurses and volunteers travel by jeep and foot to reach families who’ve never seen a doctor before.",
+        to: "/stories/health-on-wheels",
       },
       {
-        title: 'Youth leaders launch recycling drive',
-        excerpt: 'A leadership cohort turned a community clean-up into a circular economy pilot.',
+        title: "Girls who code, girls who lead",
+        excerpt: "Meet the first cohort of SWAN digital literacy graduates now mentoring girls in their villages.",
+        to: "/stories/girls-who-lead",
       },
     ],
   },
   partners: {
-    tagline: 'Trusted by partners and community coalitions across Nepal.',
-    placeholders: 4,
+    title: "Trusted by local governments & global allies",
+    logos: ["Global Youth Fund", "Rural Nepal Collective", "UN SDG Action", "Kathmandu Health Board"],
   },
   footer: {
-    mission: 'Empowering lives through education and health in Nepal.',
-    explore: 'Explore',
-    involved: 'Get Involved',
-    newsletter: 'Newsletter',
-    newsletterPlaceholder: 'Email address',
-    newsletterCta: 'Join',
-    copyright: '© 2025 SWAN',
+    blurb: "SWAN is a registered nonprofit advancing education, health, and youth leadership across rural Nepal.",
+    columns: [
+      {
+        heading: "Programs",
+        links: [
+          { label: "Education access", to: "/causes/education" },
+          { label: "Community health", to: "/causes/health" },
+          { label: "Women’s leadership", to: "/causes/empowerment" },
+        ],
+      },
+      {
+        heading: "Get involved",
+        links: [
+          { label: "Volunteer", to: "/get-involved" },
+          { label: "Donate", to: "/donate" },
+          { label: "Partnerships", to: "/contact" },
+        ],
+      },
+      {
+        heading: "Organization",
+        links: [
+          { label: "About SWAN", to: "/about" },
+          { label: "Stories", to: "/stories" },
+          { label: "Contact", to: "/contact" },
+        ],
+      },
+    ],
+    legal: [
+      { label: "Privacy Policy", to: "/legal/privacy" },
+      { label: "Terms of Use", to: "/legal/terms" },
+    ],
+    contact: {
+      email: "hello@swan.org",
+      location: "Kathmandu • Pokhara • Lamjung",
+    },
   },
-} as const
+};
 
-export type LandingCopy = typeof landingCopy
+export type HeroStat = (typeof copy.hero.stats)[number];

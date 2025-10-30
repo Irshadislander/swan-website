@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col body-font text-grayx-800">
+  <div class="min-h-screen flex flex-col bg-haze">
     <NavBar />
     <main class="flex-1">
       <slot />
@@ -7,8 +7,3 @@
     <SiteFooter />
   </div>
 </template>
-
-<script setup>
-import NavBar from './NavBar.vue'
-import SiteFooter from './SiteFooter.vue'
-</script>
