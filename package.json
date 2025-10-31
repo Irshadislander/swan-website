@@ -8,15 +8,16 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview --port 5173",
+    "build": "vite build",
+    "preview": "vite preview",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "analyze": "ANALYZE=true vite build --mode analyze"
+    "analyze": "ANALYZE=true vite build --mode analyze",
+    "devsv": "vercel dev --listen 5173"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
@@ -53,6 +54,7 @@
     "rollup-plugin-visualizer": "^6.0.5",
     "tailwindcss": "^4.1.16",
     "typescript": "~5.9.0",
+    "vercel": "^48.8.0",
     "vite": "^7.1.12",
     "vite-bundle-visualizer": "^1.2.1",
     "vite-imagetools": "^9.0.0",
