@@ -3,7 +3,7 @@
     <el-form
       :model="quickForm"
       label-position="top"
-      class="grid gap-3 sm:grid-cols-2 md:grid-cols-[repeat(3,minmax(0,1fr))_auto] md:items-center"
+      class="grid gap-3 sm:grid-cols-2 md:grid-cols-[repeat(4,minmax(0,1fr))_auto] md:items-center"
     >
       <el-form-item label="Donation frequency" class="m-0">
         <el-select
@@ -19,16 +19,33 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="Currency" class="m-0">
+        <el-select
+          v-model="currency"
+          placeholder="Currency"
+          size="large"
+          class="w-full"
+          :disabled="loading"
+        >
+          <el-option v-for="c in CURRENCIES" :key="c.code" :label="c.label" :value="c.code" />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="Donation amount" class="m-0">
         <el-select
           v-model="quickForm.amount"
-          placeholder="$50"
+          :placeholder="amountOptions.length ? formatMoney(amountOptions[0], currency) : ''"
           size="large"
           class="w-full"
           :disabled="loading"
           aria-describedby="quick-amount-help"
         >
-          <el-option v-for="n in amounts" :key="n" :label="`$${n}`" :value="n" />
+          <el-option
+            v-for="n in amountOptions"
+            :key="n"
+            :label="formatMoney(n, currency)"
+            :value="n"
+          />
         </el-select>
       </el-form-item>
 
@@ -55,7 +72,7 @@
         @click="handleSubmit"
         :disabled="loading"
       >
-        {{ loading ? "Processing…" : "Donate Now" }}
+        {{ loading ? 'Processing…' : 'Donate Now' }}
       </button>
     </el-form>
     <p id="quick-frequency-help" class="sr-only">Select one-time or monthly gift.</p>
@@ -65,57 +82,90 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
-import { ElMessage } from "element-plus";
-import type { DonationPayload } from "@/api/donations";
-import { createCheckout } from "@/api/payments";
-import { track } from "@/plugins/analytics";
-import { useRouter } from "vue-router";
+import { computed, reactive, ref, watch } from 'vue'
+import { ElMessage } from 'element-plus'
+import { createCheckout } from '@/api/payments'
+import { track } from '@/plugins/analytics'
+import { useRouter } from 'vue-router'
+import { CURRENCIES, STRIPE_PRICES, formatMoney, type CurrencyCode } from '@/config/stripe'
 
 const quickForm = reactive({
-  frequency: "once" as "once" | "monthly",
+  frequency: 'once' as 'once' | 'monthly',
   amount: 50,
-  program: "education",
-});
+  program: 'education',
+})
 
-const amounts = [25, 50, 100, 250, 500];
-const loading = ref(false);
-const router = useRouter();
+const loading = ref(false)
+const router = useRouter()
+const currency = ref<CurrencyCode>('USD')
+
+const contributionType = computed(() => (quickForm.frequency === 'monthly' ? 'monthly' : 'oneTime'))
+const amountOptions = computed(() => {
+  const entries = STRIPE_PRICES[currency.value][contributionType.value]
+  return Object.keys(entries)
+    .map((key) => Number(key))
+    .sort((a, b) => a - b)
+})
+
+watch([currency, () => quickForm.frequency], () => {
+  const options = amountOptions.value
+  if (options.length && !options.includes(quickForm.amount)) {
+    quickForm.amount = options[0]
+  }
+})
+
+if (!amountOptions.value.includes(quickForm.amount) && amountOptions.value.length) {
+  quickForm.amount = amountOptions.value[0]
+}
 
 const donateLabel = computed(
   () =>
-    `Donate ${quickForm.frequency === "monthly" ? "monthly" : "once"} ${quickForm.amount ? `$${quickForm.amount}` : ""} to SWAN`
-);
+    `Donate ${quickForm.frequency === 'monthly' ? 'monthly' : 'once'} ${formatMoney(quickForm.amount, currency.value)} to SWAN`,
+)
 
 const handleSubmit = async () => {
-  if (loading.value) return;
-  loading.value = true;
-  const payload: DonationPayload = {
-    name: "Quick Donate",
-    email: "quickdonate@swan.org",
+  if (loading.value) return
+  loading.value = true
+  const frequency = quickForm.frequency === 'once' ? 'one-time' : 'monthly'
+  const priceMap = STRIPE_PRICES[currency.value][contributionType.value]
+  const priceId = priceMap[quickForm.amount]
+  const payload = {
+    name: 'Quick Donate',
+    email: 'quickdonate@swan.org',
     amount: quickForm.amount,
-    frequency: quickForm.frequency === "once" ? "one-time" : "monthly",
+    frequency,
     program: quickForm.program,
-    note: "Quick donate bar submission",
-  };
-  track("donate_intent", { ...payload, source: "quick_bar" });
-  const checkout = await createCheckout(payload);
-  loading.value = false;
+    currency: currency.value,
+    priceId,
+    note: 'Quick donate bar submission',
+  }
+  track('donate_intent', { ...payload, source: 'quick_bar', hasPrice: Boolean(priceId) })
+  const checkout = await createCheckout(payload)
+  loading.value = false
 
   if (checkout.ok) {
-    window.location.href = checkout.url;
-    return;
+    window.location.href = checkout.url
+    return
   }
 
-  if ("mock" in checkout && checkout.mock) {
-    router.push(checkout.url);
-    track("donate_submit", { ...payload, id: "MOCK", source: "quick_bar" });
-    return;
+  if ('mock' in checkout && checkout.mock) {
+    router.push(checkout.url)
+    track('donate_submit', {
+      ...payload,
+      id: 'MOCK',
+      source: 'quick_bar',
+      hasPrice: Boolean(priceId),
+    })
+    return
   }
 
-  const message =
-    ("error" in checkout && checkout.error) || "Unable to start checkout";
-  ElMessage.error(message);
-  track("donate_error", { ...payload, source: "quick_bar", error: message });
-};
+  const message = ('error' in checkout && checkout.error) || 'Unable to start checkout'
+  ElMessage.error(message)
+  track('donate_error', {
+    ...payload,
+    source: 'quick_bar',
+    error: message,
+    hasPrice: Boolean(priceId),
+  })
+}
 </script>
