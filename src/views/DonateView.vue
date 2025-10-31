@@ -100,7 +100,7 @@ async function submit() {
   const currencyCode = currency.value
   const frequencyValue = form.frequency === 'once' ? 'one-time' : 'monthly'
   const priceMap = STRIPE_PRICES[currencyCode][contributionType.value]
-  const priceId = priceMap[form.amount]
+  const priceId = priceMap[form.amount] || null
   const payload = {
     name: form.name.trim(),
     email: form.email.trim(),

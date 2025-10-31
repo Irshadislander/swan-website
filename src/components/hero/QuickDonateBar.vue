@@ -128,7 +128,7 @@ const handleSubmit = async () => {
   loading.value = true
   const frequency = quickForm.frequency === 'once' ? 'one-time' : 'monthly'
   const priceMap = STRIPE_PRICES[currency.value][contributionType.value]
-  const priceId = priceMap[quickForm.amount]
+  const priceId = priceMap[quickForm.amount] || null
   const payload = {
     name: 'Quick Donate',
     email: 'quickdonate@swan.org',
