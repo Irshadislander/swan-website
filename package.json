@@ -17,7 +17,9 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "analyze": "ANALYZE=true vite build --mode analyze",
-    "devsv": "vercel dev --listen 5173"
+    "devsv": "vercel dev --listen 5173",
+    "lhci": "lhci autorun",
+    "lhci:preview": "BASE_URL=${BASE_URL:-https://localhost:5173} node -e \"const fs=require('fs');const p='./lighthouserc.json';const j=JSON.parse(fs.readFileSync(p));j.ci.collect.url=j.ci.collect.url.map(u=>u.replace('https://<YOUR_REAL_DOMAIN>',process.env.BASE_URL));fs.writeFileSync(p,JSON.stringify(j,null,2));\" && lhci autorun"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
@@ -34,6 +36,7 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4.1.16",
     "@tailwindcss/typography": "^0.5.19",
