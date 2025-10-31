@@ -15,6 +15,12 @@ const error = ref<string | null>(null);
 const showEmailPreview = import.meta.env.DEV;
 
 const donationId = computed(() => route.query.id as string | undefined);
+const optimisticReceiptMessage = computed(() => {
+  if (!donationId.value) return null;
+  const email = donation.value?.email || (route.query.email as string | undefined);
+  if (email) return `We emailed a receipt to ${email}.`;
+  return "We just emailed your receipt. Please check your inbox.";
+});
 
 const loadDonation = async () => {
   if (!donationId.value) {
@@ -80,6 +86,9 @@ watch(donationId, () => {
       </div>
       <div v-else class="space-y-8">
         <div class="card p-8 space-y-5 text-center">
+          <p v-if="optimisticReceiptMessage" class="rounded-xl bg-brand-50 text-brand-800 px-4 py-2 text-sm">
+            {{ optimisticReceiptMessage }}
+          </p>
           <h1 class="font-heading text-3xl text-brand-900">Thank you, {{ donation!.name }}!</h1>
           <p class="text-slate-600 max-w-xl mx-auto">
             Your gift fuels education, health, and women’s leadership programs in rural Nepal. We sent a receipt to {{ donation!.email }}.

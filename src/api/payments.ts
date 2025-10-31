@@ -5,7 +5,7 @@ export type CheckoutPayload = {
   email?: string
   name?: string
   currency?: string
-  priceId?: string
+  priceId?: string | null
   note?: string
 }
 
