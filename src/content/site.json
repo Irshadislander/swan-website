@@ -16,6 +16,7 @@
         ]
       },
       { "label": "Stories", "href": "/stories" },
+      { "label": "Volunteer", "href": "/volunteer" },
       { "label": "Contact", "href": "/contact" }
     ],
     "cta": { "label": "Donate", "href": "/donate" }
@@ -82,7 +83,7 @@
     "title": "Join the SWAN collective",
     "body": "Monthly donors fund emergency scholarships and keep health camps on the road year-round.",
     "primaryCta": { "label": "Give monthly", "to": "/donate" },
-    "secondaryCta": { "label": "Volunteer", "to": "/get-involved" }
+    "secondaryCta": { "label": "Volunteer", "to": "/volunteer" }
   },
   "storiesPreview": {
     "title": "Stories from the field",
@@ -107,7 +108,7 @@
       {
         "heading": "Get involved",
         "links": [
-          { "label": "Volunteer", "to": "/get-involved" },
+          { "label": "Volunteer", "to": "/volunteer" },
           { "label": "Donate", "to": "/donate" },
           { "label": "Partnerships", "to": "/contact" }
         ]
