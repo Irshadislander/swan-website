@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
+import { DEFER_FUND_CHART } from "@/config/flags";
 
 type ChartBreakdown = { label: string; value: number };
 
@@ -41,6 +42,8 @@ const loadEcharts = () => {
 const chartEl = ref<HTMLDivElement | null>(null);
 let chartInstance: import("echarts/core").ECharts | null = null;
 let resizeBound = false;
+const defer = DEFER_FUND_CHART;
+const mounted = ref(false);
 
 const totalValue = computed(() => props.breakdown.reduce((acc, item) => acc + Number(item.value ?? 0), 0));
 const totalLabel = computed(() => `${Math.round(totalValue.value)}%`);
@@ -55,7 +58,7 @@ const handleResize = () => {
   chartInstance?.resize();
 };
 
-const renderChart = async () => {
+const drawChart = async () => {
   if (!chartEl.value || !props.breakdown.length) return;
   const echarts = await loadEcharts();
   await nextTick();
@@ -101,16 +104,25 @@ const renderChart = async () => {
     },
     true
   );
+  mounted.value = true;
+};
+
+const mountChart = async () => {
+  if (mounted.value) return;
+  await drawChart();
 };
 
 onMounted(() => {
-  renderChart();
+  if (!defer) {
+    mountChart();
+  }
 });
 
 watch(
   () => props.breakdown,
   () => {
-    renderChart();
+    if (defer && !mounted.value) return;
+    drawChart();
   },
   { deep: true }
 );
@@ -126,8 +138,16 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="card chart-card p-5" role="img" :aria-label="ariaLabel">
-    <div ref="chartEl" class="h-64 md:h-72"></div>
+  <div class="card chart-card p-5">
+    <button
+      v-if="defer && !mounted"
+      type="button"
+      class="btn mb-4 focus-ring focus:outline-none"
+      @click="mountChart"
+    >
+      View breakdown
+    </button>
+    <div ref="chartEl" class="h-64 md:h-72" role="img" :aria-label="ariaLabel"></div>
     <p class="sr-only">Total allocation {{ totalLabel }}</p>
   </div>
 </template>
