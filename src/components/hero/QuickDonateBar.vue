@@ -100,7 +100,7 @@ const router = useRouter()
 const currency = ref<CurrencyCode>('USD')
 
 const contributionType = computed(() => (quickForm.frequency === 'monthly' ? 'monthly' : 'oneTime'))
-const amountOptions = computed(() => {
+const amountOptions = computed<number[]>(() => {
   const entries = STRIPE_PRICES[currency.value][contributionType.value]
   return Object.keys(entries)
     .map((key) => Number(key))
@@ -110,12 +110,12 @@ const amountOptions = computed(() => {
 watch([currency, () => quickForm.frequency], () => {
   const options = amountOptions.value
   if (options.length && !options.includes(quickForm.amount)) {
-    quickForm.amount = options[0]
+    quickForm.amount = options[0]!
   }
 })
 
 if (!amountOptions.value.includes(quickForm.amount) && amountOptions.value.length) {
-  quickForm.amount = amountOptions.value[0]
+  quickForm.amount = amountOptions.value[0]!
 }
 
 const donateLabel = computed(

@@ -45,7 +45,7 @@ const whyPoints = [
 ]
 
 const contributionType = computed(() => (form.frequency === 'monthly' ? 'monthly' : 'oneTime'))
-const amountOptions = computed(() => {
+const amountOptions = computed<number[]>(() => {
   const entries = STRIPE_PRICES[currency.value][contributionType.value]
   return Object.keys(entries)
     .map((key) => Number(key))
@@ -55,20 +55,20 @@ const amountOptions = computed(() => {
 watch([currency, () => form.frequency], () => {
   const options = amountOptions.value
   if (options.length && !options.includes(form.amount)) {
-    form.amount = options[0]
+    form.amount = options[0]!
   }
   selectedAmount.value = form.amount
 })
 
 watch(
   () => form.amount,
-  (value) => {
+  (value: number) => {
     selectedAmount.value = value
   },
 )
 
 if (!amountOptions.value.includes(form.amount) && amountOptions.value.length) {
-  form.amount = amountOptions.value[0]
+  form.amount = amountOptions.value[0]!
   selectedAmount.value = form.amount
 }
 

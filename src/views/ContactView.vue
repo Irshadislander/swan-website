@@ -3,13 +3,15 @@ import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import MainLayout from "@/shared/MainLayout.vue";
 import { track } from "@/plugins/analytics";
+import { useRouter } from "vue-router";
+import { persist } from "@/lib/store";
 
 type ContactForm = {
   name: string;
   email: string;
   subject: string;
   message: string;
-  token: string;
+  website: string;
 };
 
 const form = reactive<ContactForm>({
@@ -17,7 +19,7 @@ const form = reactive<ContactForm>({
   email: "",
   subject: "",
   message: "",
-  token: "",
+  website: "",
 });
 
 const loading = ref(false);
@@ -26,8 +28,10 @@ const errors = reactive<Record<keyof ContactForm, string>>({
   email: "",
   subject: "",
   message: "",
-  token: "",
+  website: "",
 });
+
+const router = useRouter();
 
 const validate = () => {
   errors.name = form.name.trim() ? "" : "Name is required.";
@@ -42,7 +46,7 @@ const resetForm = () => {
   form.email = "";
   form.subject = "";
   form.message = "";
-  form.token = "";
+  form.website = "";
 };
 
 const submit = async () => {
@@ -54,11 +58,20 @@ const submit = async () => {
 
   loading.value = true;
 
-  if (form.token.trim()) {
-    track("form_submit", { type: "contact", status: "honeypot" });
+  if (form.website.trim()) {
+    track("spam_honeypot_hit", { form: "contact" });
+    track("form_submit_success", { type: "contact", via: "honeypot" });
+    persist("leads", {
+      type: "contact",
+      name: form.name,
+      email: form.email,
+      subject: form.subject,
+      message: form.message,
+      source: "honeypot",
+    });
     resetForm();
     loading.value = false;
-    ElMessage.success("Thanks for reaching out! We’ll respond shortly.");
+    router.push({ name: "thanks", query: { form: "contact" } });
     return;
   }
 
@@ -83,19 +96,34 @@ const submit = async () => {
     const result = await response.json();
 
     if (result.ok) {
-      track("form_submit", { type: "contact", status: "success" });
-      ElMessage.success("Thanks for reaching out! We’ll respond shortly.");
+      track("form_submit_success", { type: "contact", mode: "live" });
+      persist("leads", {
+        type: "contact",
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      });
       resetForm();
+      router.push({ name: "thanks", query: { form: "contact" } });
     } else if (result.mock) {
-      track("form_submit", { type: "contact", status: "mock" });
-      ElMessage.success("Thanks for contacting SWAN!");
+      track("form_submit_success", { type: "contact", mode: "mock" });
+      persist("leads", {
+        type: "contact",
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+        mode: "mock",
+      });
       resetForm();
+      router.push({ name: "thanks", query: { form: "contact" } });
     } else {
       throw new Error(result.error || "Unable to send message.");
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Something went wrong.";
-    track("form_submit", { type: "contact", status: "error", error: message });
+    track("form_submit_error", { type: "contact", error: message });
     ElMessage.error(message);
   } finally {
     loading.value = false;
@@ -168,8 +196,16 @@ const submit = async () => {
               <p v-if="errors.message" id="contact-message-error" class="mt-1 text-xs text-red-500">{{ errors.message }}</p>
             </div>
 
-            <label class="sr-only" for="contact-token">Leave this field blank</label>
-            <input id="contact-token" v-model="form.token" type="text" class="hidden" tabindex="-1" autocomplete="off" />
+            <label class="sr-only" for="contact-website">Leave this field blank</label>
+            <input
+              id="contact-website"
+              v-model="form.website"
+              name="website"
+              type="text"
+              class="hidden"
+              tabindex="-1"
+              autocomplete="off"
+            />
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button

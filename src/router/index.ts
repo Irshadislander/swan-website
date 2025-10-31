@@ -72,6 +72,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/thanks",
+      name: "thanks",
+      component: () => import(/* webpackChunkName: "view-thanks" */ "@/views/ThanksView.vue"),
+      meta: {
+        title: "Thank you",
+        description: "We received your message.",
+      },
+    },
+    {
       path: "/search",
       name: "search",
       component: () => import(/* webpackChunkName: "view-search" */ "@/views/SearchView.vue"),
