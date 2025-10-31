@@ -7,19 +7,53 @@
     "strict": true,
     "jsx": "preserve",
     "useDefineForClassFields": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@views/*": ["src/views/*"],
-      "@shared/*": ["src/shared/*"],
-      "@lib/*": ["src/lib/*"],
-      "@router": ["src/router/index.ts"],
-      "@router/*": ["src/router/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@views/*": [
+        "src/views/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@router": [
+        "src/router/index.ts"
+      ],
+      "@router/*": [
+        "src/router/*"
+      ]
     },
-    "types": ["vite/client", "node", "vue"]
+    "types": [
+      "vite/client",
+      "node",
+      "vue"
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules", "dist"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "vueCompilerOptions": {
+    "globalTypesPath": "./src/types/vue-global.d.ts"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

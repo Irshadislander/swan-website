@@ -1,0 +1,133 @@
+{
+  "brand": {
+    "name": "SWAN",
+    "tagline": "Students Working Against Neglect"
+  },
+  "nav": {
+    "primary": [
+      { "label": "About", "href": "/about" },
+      {
+        "label": "Causes",
+        "href": "/causes",
+        "cols": [
+          { "title": "Education", "href": "/causes/education", "image": "/images/home/focus-education.jpg" },
+          { "title": "Community Health", "href": "/causes/health", "image": "/images/home/focus-health.jpg" },
+          { "title": "Women’s Leadership", "href": "/causes/empowerment", "image": "/images/home/focus-women.jpg" }
+        ]
+      },
+      { "label": "Stories", "href": "/stories" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "cta": { "label": "Donate", "href": "/donate" }
+  },
+  "focusAreas": [
+    {
+      "slug": "education",
+      "badge": "ED",
+      "title": "Education Access",
+      "blurb": "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
+      "stat": "92% of SWAN scholars graduated secondary school last year.",
+      "to": "/causes/education"
+    },
+    {
+      "slug": "health",
+      "badge": "HE",
+      "title": "Community Health",
+      "blurb": "Mobile health camps and women’s wellness programs with trusted local nurses.",
+      "stat": "9,500+ medical consultations provided in remote districts.",
+      "to": "/causes/health"
+    },
+    {
+      "slug": "empowerment",
+      "badge": "EM",
+      "title": "Women’s Leadership",
+      "blurb": "Micro-grants and trainings for women-led cooperatives focused on livelihoods.",
+      "stat": "71 new women-led enterprises incubated since 2021.",
+      "to": "/causes/empowerment"
+    }
+  ],
+  "hero": {
+    "eyebrow": "Grassroots impact in Nepal",
+    "title": "Because a student’s dream should never be out of reach.",
+    "body": "SWAN teams travel deep into rural Nepal to deliver scholarships, women-led cooperatives, and mobile health camps — all in partnership with the communities we serve.",
+    "primaryCta": { "label": "Donate now", "to": "/donate" },
+    "secondaryCta": { "label": "Why SWAN?", "to": "/about" },
+    "image": "/images/cause-education.jpg",
+    "imageAlt": "Students studying together in Nepal",
+    "stats": [
+      { "value": 5200, "suffix": "+", "label": "Students reached" },
+      { "value": 26, "suffix": "", "label": "Health camps delivered" },
+      { "value": 180, "suffix": "+", "label": "Active volunteers" }
+    ]
+  },
+  "impact": {
+    "title": "Why your donation matters",
+    "headline": "Every rupee stays accountable.",
+    "items": [
+      {
+        "title": "Community owned",
+        "description": "Programs are designed and audited with village committees so funding answers real priorities."
+      },
+      {
+        "title": "Data informed",
+        "description": "We track attendance, graduation, and health outcomes to learn fast and adapt faster."
+      },
+      {
+        "title": "Lean operations",
+        "description": "90% of gifts go directly into programs thanks to a mostly volunteer leadership team."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Join the SWAN collective",
+    "body": "Monthly donors fund emergency scholarships and keep health camps on the road year-round.",
+    "primaryCta": { "label": "Give monthly", "to": "/donate" },
+    "secondaryCta": { "label": "Volunteer", "to": "/get-involved" }
+  },
+  "storiesPreview": {
+    "title": "Stories from the field",
+    "body": "See how communities are steering projects and changing what’s possible for the next generation.",
+    "items": ["library-rises", "maternal-care-caravan", "coop-leaders"]
+  },
+  "partners": {
+    "title": "Trusted by local governments & global allies",
+    "logos": ["Global Youth Fund", "Rural Nepal Collective", "UN SDG Action", "Kathmandu Health Board"]
+  },
+  "footer": {
+    "blurb": "SWAN is a registered nonprofit advancing education, health, and youth leadership across rural Nepal.",
+    "columns": [
+      {
+        "heading": "Programs",
+        "links": [
+          { "label": "Education access", "to": "/causes/education" },
+          { "label": "Community health", "to": "/causes/health" },
+          { "label": "Women’s leadership", "to": "/causes/empowerment" }
+        ]
+      },
+      {
+        "heading": "Get involved",
+        "links": [
+          { "label": "Volunteer", "to": "/get-involved" },
+          { "label": "Donate", "to": "/donate" },
+          { "label": "Partnerships", "to": "/contact" }
+        ]
+      },
+      {
+        "heading": "Organization",
+        "links": [
+          { "label": "About SWAN", "to": "/about" },
+          { "label": "Stories", "to": "/stories" },
+          { "label": "Contact", "to": "/contact" }
+        ]
+      }
+    ],
+    "legal": [
+      { "label": "Privacy Policy", "to": "/legal/privacy" },
+      { "label": "Terms of Use", "to": "/legal/terms" }
+    ],
+    "contact": {
+      "email": "hello@swan.org",
+      "location": "Kathmandu • Pokhara • Lamjung"
+    }
+  }
+}

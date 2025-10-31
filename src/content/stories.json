@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "library-rises",
+    "tag": "Education",
+    "title": "A library rises in Lamjung",
+    "excerpt": "Students and parents rebuilt their library after the 2015 quake\u2014with SWAN covering materials and training for youth volunteers.",
+    "image": "/images/story-library.jpg",
+    "date": "2024-03-12",
+    "body": [
+      "In the hillside community of Lamjung, the original school library collapsed during the 2015 earthquake. Students stored rescued books in metal trunks for years.",
+      "Last year, the community organized, fundraising alongside SWAN supporters to rebuild a seismically safe reading space. Parents donated stonework and labor while SWAN covered engineering plans, timber, and youth volunteer stipends.",
+      "Today, over 320 students borrow books weekly. The reading club now mentors younger students and hosts storytelling hours for families."
+    ],
+    "category": "Education"
+  },
+  {
+    "slug": "maternal-care-caravan",
+    "tag": "Health",
+    "title": "Maternal care on the move",
+    "excerpt": "Nurses and midwives travel four hours by jeep and foot to deliver prenatal checkups, vitamins, and safe birth plans to new mothers.",
+    "image": "/images/story-maternal.jpg",
+    "date": "2024-04-08",
+    "body": [
+      "In remote Dhading, expectant mothers often walk for hours for prenatal checkups. SWAN\u2019s mobile maternal caravan changes that reality.",
+      "Every two weeks, a team of nurses and midwives travels by jeep and foot to reach villages without clinics. They carry ultrasound equipment, prenatal vitamins, and safe birth kits.",
+      "Follow-ups show higher antenatal checkup rates and fewer preventable complications. New mothers say they now have a direct connection to care long after delivery."
+    ],
+    "category": "Health"
+  },
+  {
+    "slug": "coop-leaders",
+    "tag": "Women\u2019s Leadership",
+    "title": "Co-ops fueling village economies",
+    "excerpt": "Women-led cooperatives are investing micro-grants into goat farming, tailoring, and seed banks\u2014creating lasting income at home.",
+    "image": "/images/story-coops.jpg",
+    "date": "2024-05-19",
+    "body": [
+      "Across Lamjung and Kaski districts, women-led cooperatives are reshaping local economies with micro-grants and training backed by SWAN supporters.",
+      "The cooperatives choose the ventures\u2014goat rearing, tailoring, seed banks\u2014and manage transparent repayment schedules. Profits are reinvested into new members.",
+      "Over 71 enterprises have launched since 2021, generating livelihoods while keeping skills and profits anchored in their own villages."
+    ],
+    "category": "Women\u2019s Leadership"
+  }
+]

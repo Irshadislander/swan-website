@@ -6,12 +6,12 @@ module.exports = {
       colors: {
         brand: {
           50:  "#eef3fb",
-          100: "#dbe6f7",
-          200: "#b7cdf0",
-          300: "#8faee5",
-          400: "#5d86d7",
-          500: "#2e5fc7",
-          600: "#1f49a9",
+          100: "#cfdcf4",
+          200: "#a8c0eb",
+          300: "#7fa4e1",
+          400: "#4c7bcf",
+          500: "#2453b5",
+          600: "#1a479b",
           700: "#173883",
           800: "#122a63",
           900: "#0d214f",
@@ -39,5 +39,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

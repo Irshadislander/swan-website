@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SWAN icon">
+  <rect width="64" height="64" rx="14" fill="#2e5fc7" />
+  <path
+    d="M8 22c8-6 16-6 24 0s16 6 24 0v10c-8 6-16 6-24 0s-16-6-24 0V22z"
+    fill="#a3d3c8"
+    fill-opacity=".7"
+  />
+  <path
+    d="M8 36c8-6 16-6 24 0s16 6 24 0v19H8V36z"
+    fill="#ffffff"
+    fill-opacity=".85"
+  />
+</svg>

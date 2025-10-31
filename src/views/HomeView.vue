@@ -9,6 +9,7 @@
     <CausesGrid />
     <ImpactStrip />
     <StoriesPreview />
+    <SignupForm class="mt-12" source="home" />
     <CTABanner />
     <PartnersRow />
   </div>
@@ -24,4 +25,5 @@ import ImpactStrip from "@components/sections/ImpactStrip.vue";
 import StoriesPreview from "@components/sections/StoriesPreview.vue";
 import CTABanner from "@components/sections/CTABanner.vue";
 import PartnersRow from "@components/sections/PartnersRow.vue";
+import SignupForm from "@components/newsletter/SignupForm.vue";
 </script>

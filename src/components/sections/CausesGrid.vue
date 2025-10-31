@@ -8,16 +8,27 @@
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
-        <article v-for="cause in copy.causes" :key="cause.id" class="card p-6 flex h-full flex-col">
+        <article
+          v-for="cause in causes"
+          :key="cause.slug"
+          class="card p-6 flex h-full flex-col"
+          @mouseenter="ensureCauseView()"
+        >
           <div class="flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold text-brand-900">{{ cause.title }}</h3>
-            <span class="pill bg-accent-100 border-accent-200">{{ cause.id.slice(0, 2).toUpperCase() }}</span>
+            <h3 class="text-xl font-semibold text-brand-900">{{ cause.name }}</h3>
+            <span class="pill bg-accent-100 border-accent-200">{{ cause.code }}</span>
           </div>
-          <p class="mt-4 text-sm leading-relaxed text-slate-600">{{ cause.description }}</p>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">{{ cause.summary }}</p>
           <div class="mt-5 rounded-xl bg-accent-100 px-4 py-3 text-sm text-brand-800">
             {{ cause.impact }}
           </div>
-          <RouterLink :to="`/causes/${cause.id}`" class="mt-auto btn btn-primary">Explore program</RouterLink>
+          <RouterLink
+            :to="`/causes/${cause.slug}`"
+            class="mt-auto btn btn-primary"
+            @mouseenter="ensureCauseView()"
+          >
+            Explore program
+          </RouterLink>
         </article>
       </div>
     </div>
@@ -25,5 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import { copy } from "@lib/copy";
+import { getCauses } from "@/lib/content";
+
+const causes = getCauses();
+let causeViewPrefetch: Promise<unknown> | null = null;
+
+const ensureCauseView = () => {
+  if (!causeViewPrefetch) {
+    causeViewPrefetch = import(/* webpackChunkName: "view-cause" */ "@/views/CauseView.vue");
+  }
+};
 </script>

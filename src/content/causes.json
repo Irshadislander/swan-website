@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "education",
+    "name": "Education Access",
+    "code": "ED",
+    "lede": "Scholarships, safe classrooms, and mentoring programs keep rural students on track to graduate and dream bigger.",
+    "summary": "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
+    "impact": "92% of SWAN scholars graduated secondary school last year.",
+    "body": [
+      "Scholarships cover tuition, uniforms, and entrance exam prep.",
+      "School rehab teams retrofit classrooms and libraries after disasters.",
+      "Mentorship clubs pair older students with primary school learners."
+    ],
+    "heroImage": "/images/cause-education.jpg",
+    "cardImage": "/images/home/focus-education.jpg",
+    "stats": [
+      { "label": "Scholarships awarded", "value": "1,200" },
+      { "label": "Schools rebuilt", "value": "38" },
+      { "label": "Mentor pairs", "value": "460" },
+      { "label": "Graduation rate", "value": "92%" }
+    ],
+    "fundUse": [
+      { "label": "Programs", "value": 72 },
+      { "label": "Administration", "value": 12 },
+      { "label": "Fundraising", "value": 16 }
+    ],
+    "faq": [
+      {
+        "q": "How are students selected for scholarships?",
+        "a": "Local teachers nominate students based on financial need, attendance, and community leadership. A SWAN committee verifies each case before awards are made."
+      },
+      {
+        "q": "Do gifts support teacher training?",
+        "a": "Yes. Every scholarship fund sets aside 8% to train teachers in trauma-informed instruction and digital literacy."
+      }
+    ]
+  },
+  {
+    "slug": "health",
+    "name": "Community Health",
+    "code": "HE",
+    "lede": "Mobile health camps run by Nepali nurses deliver checkups, medicines, and wellness training in hard-to-reach villages.",
+    "summary": "Mobile health camps and women\u2019s wellness programs with trusted local nurses.",
+    "impact": "9,500+ medical consultations provided in remote districts.",
+    "body": [
+      "Mobile clinics offer maternal, pediatric, and chronic care checkups.",
+      "Emergency funds cover referrals to partner hospitals when needed.",
+      "Health promoters train local volunteers in nutrition and hygiene."
+    ],
+    "heroImage": "/images/cause-health.jpg",
+    "cardImage": "/images/home/focus-health.jpg",
+    "stats": [
+      { "label": "Patients treated in 2024", "value": "9,500+" },
+      { "label": "Mobile clinics deployed", "value": "32" },
+      { "label": "Prenatal visits delivered", "value": "1,850" },
+      { "label": "Partner nurses", "value": "68" }
+    ],
+    "fundUse": [
+      { "label": "Programs", "value": 74 },
+      { "label": "Administration", "value": 11 },
+      { "label": "Fundraising", "value": 15 }
+    ],
+    "faq": [
+      {
+        "q": "Which districts do the mobile camps visit?",
+        "a": "Camps rotate through Dhading, Lamjung, and Kaski districts, prioritising wards without permanent health posts."
+      },
+      {
+        "q": "What support is provided after clinic days?",
+        "a": "Patients needing follow-up get transport stipends and referrals to partner hospitals. Nurses track outcomes through a shared case system."
+      }
+    ]
+  },
+  {
+    "slug": "empowerment",
+    "name": "Women\u2019s Leadership",
+    "code": "EM",
+    "lede": "Micro-grants and coaching empower women-led cooperatives to launch enterprises and keep profits in their communities.",
+    "summary": "Micro-grants and trainings for women-led cooperatives focused on livelihoods.",
+    "impact": "71 new women-led enterprises incubated since 2021.",
+    "body": [
+      "Seed funding for cooperatives investing in agriculture and services.",
+      "Financial literacy and digital record-keeping workshops.",
+      "Market linkages to help cooperatives sell beyond their village."
+    ],
+    "heroImage": "/images/cause-empowerment.jpg",
+    "cardImage": "/images/home/focus-women.jpg",
+    "stats": [
+      { "label": "Co-ops funded", "value": "71" },
+      { "label": "Micro-grants issued", "value": "$185K" },
+      { "label": "Enterprises launched", "value": "140" },
+      { "label": "Average ROI", "value": "2.6x" }
+    ],
+    "fundUse": [
+      { "label": "Programs", "value": 70 },
+      { "label": "Administration", "value": 14 },
+      { "label": "Fundraising", "value": 16 }
+    ],
+    "faq": [
+      {
+        "q": "How are cooperatives selected?",
+        "a": "Women’s groups submit business plans that are reviewed by a community board and SWAN finance mentors before funds are released."
+      },
+      {
+        "q": "Do grants need to be repaid?",
+        "a": "Most investments are structured as low-interest revolving loans so repayments seed the next cooperative."
+      }
+    ]
+  }
+]

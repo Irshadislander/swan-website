@@ -3,13 +3,13 @@
     <div class="container-irr space-y-6">
       <div>
         <p class="kicker mb-3">Why SWAN</p>
-        <h2 class="text-3xl font-bold text-brand-900">{{ copy.impact.title }}</h2>
-        <p class="text-slate-600">{{ copy.impact.headline }}</p>
+        <h2 class="text-3xl font-bold text-brand-900">{{ impact.title }}</h2>
+        <p class="text-slate-600">{{ impact.headline }}</p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
         <article
-          v-for="item in copy.impact.items"
+          v-for="item in impact.items"
           :key="item.title"
           class="card p-6 hover:-translate-y-1 hover:shadow-lg transition"
         >
@@ -23,5 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { copy } from "@lib/copy";
+import { getSite } from "@/lib/content";
+
+const site = getSite();
+const impact = site.impact;
 </script>

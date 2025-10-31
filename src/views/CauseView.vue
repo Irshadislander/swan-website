@@ -1,49 +1,23 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import QuickDonateBar from "@/components/hero/QuickDonateBar.vue";
-
-const CAUSES = {
-  education: {
-    badge: "ED",
-    title: "Education Access",
-    lede:
-      "Scholarships, safe classrooms, and mentoring programs keep rural students on track to graduate and dream bigger.",
-    bullets: [
-      "Scholarships cover tuition, uniforms, and entrance exam prep.",
-      "School rehab teams retrofit classrooms and libraries after disasters.",
-      "Mentorship clubs pair older students with primary school learners.",
-    ],
-    image: "/images/cause-education.jpg",
-  },
-  health: {
-    badge: "HE",
-    title: "Community Health",
-    lede:
-      "Mobile health camps run by Nepali nurses deliver checkups, medicines, and wellness training in hard-to-reach villages.",
-    bullets: [
-      "Mobile clinics offer maternal, pediatric, and chronic care checkups.",
-      "Emergency funds cover referrals to partner hospitals when needed.",
-      "Health promoters train local volunteers in nutrition and hygiene.",
-    ],
-    image: "/images/cause-health.jpg",
-  },
-  empowerment: {
-    badge: "EM",
-    title: "Women’s Leadership",
-    lede:
-      "Micro-grants and coaching empower women-led cooperatives to launch enterprises and keep profits in their communities.",
-    bullets: [
-      "Seed funding for cooperatives investing in agriculture and services.",
-      "Financial literacy and digital record-keeping workshops.",
-      "Market linkages to help cooperatives sell beyond their village.",
-    ],
-    image: "/images/cause-empowerment.jpg",
-  },
-} satisfies Record<string, { badge: string; title: string; lede: string; bullets: string[]; image: string }>;
+import AppImage from "@/components/util/AppImage.vue";
+import ImpactStatsRow from "@/components/causes/ImpactStatsRow.vue";
+import FundUseChart from "@/components/causes/FundUseChart.vue";
+import FAQAccordion from "@/components/causes/FAQAccordion.vue";
+import { getCause } from "@/lib/content";
+import { track } from "@/plugins/analytics";
 
 const route = useRoute();
-const cause = computed(() => CAUSES[(route.params.slug as string) ?? ""]);
+const router = useRouter();
+const cause = computed(() => getCause((route.params.slug as string) ?? ""));
+
+const goMonthly = () => {
+  if (!cause.value) return;
+  track("cause_cta_click", { slug: cause.value.slug, plan: "monthly" });
+  router.push({ name: "donate", query: { frequency: "monthly", program: cause.value.slug } });
+};
 </script>
 
 <template>
@@ -51,24 +25,44 @@ const cause = computed(() => CAUSES[(route.params.slug as string) ?? ""]);
     <div class="container-irr grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
       <article class="space-y-6">
         <div class="flex items-center gap-3">
-          <span class="mini-badge">{{ cause.badge }}</span>
+          <span class="mini-badge">{{ cause.code }}</span>
           <RouterLink to="/causes" class="text-sm text-brand-600 hover:text-brand-800">All causes</RouterLink>
         </div>
-        <h1 class="font-heading text-3xl sm:text-4xl text-brand-900">{{ cause.title }}</h1>
+        <h1 class="font-heading text-3xl sm:text-4xl text-brand-900">{{ cause.name }}</h1>
         <p class="text-slate-700 text-lg leading-relaxed">{{ cause.lede }}</p>
 
         <ul class="space-y-3 text-slate-700">
-          <li v-for="item in cause.bullets" :key="item" class="flex gap-3">
+          <li v-for="item in cause.body" :key="item" class="flex gap-3">
             <span class="pill bg-accent-50 border-accent-200 text-brand-700">✔</span>
             <span>{{ item }}</span>
           </li>
         </ul>
 
-        <img :src="cause.image" :alt="cause.title" class="w-full rounded-2xl shadow-card object-cover" />
+        <div class="aspect-[4/3] w-full overflow-hidden rounded-2xl">
+          <AppImage
+            :src="cause.heroImage"
+            :alt="cause.name"
+            class="h-full w-full object-cover"
+            :sizes="'(max-width: 768px) 100vw, 50vw'"
+          />
+        </div>
+
+        <ImpactStatsRow v-if="cause.stats?.length" :stats="cause.stats" />
+
+        <div v-if="cause.fundUse?.length" class="mt-8 space-y-6">
+          <FundUseChart :breakdown="cause.fundUse" />
+          <div class="text-center">
+            <button type="button" class="btn btn-gradient focus-ring focus:outline-none" @click="goMonthly">
+              Give monthly to {{ cause.name }}
+            </button>
+          </div>
+        </div>
+
+        <FAQAccordion v-if="cause.faq?.length" :items="cause.faq" class="mt-8" />
       </article>
 
       <aside class="card p-6 space-y-5 self-start">
-        <h2 class="font-heading text-xl text-brand-900">Support {{ cause.title }}</h2>
+        <h2 class="font-heading text-xl text-brand-900">Support {{ cause.name }}</h2>
         <p class="text-slate-600">
           Everything we do is driven with local partners and published transparency reports. Your gift keeps programs going in
           the most remote wards.

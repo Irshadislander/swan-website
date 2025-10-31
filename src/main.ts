@@ -5,9 +5,12 @@ import * as ElIcons from "@element-plus/icons-vue";
 import App from "./App.vue";
 import router from "@/router";
 import "@/assets/main.css";
+import { initAnalytics } from "@/plugins/analytics";
 
 const app = createApp(App);
 app.use(router);
 app.use(ElementPlus);
 Object.entries(ElIcons).forEach(([name, comp]) => app.component(name, comp));
 app.mount("#app");
+
+initAnalytics();

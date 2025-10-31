@@ -1,58 +1,157 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { RouterLink, useRoute } from "vue-router";
-
-const stories = {
-  "library-rises": {
-    tag: "Education",
-    title: "A library rises in Lamjung",
-    image: "/images/story-library.jpg",
-    body: [
-      "In the hillside community of Lamjung, the original school library collapsed during the 2015 earthquake. Students stored rescued books in metal trunks for years.",
-      "Last year, the community organized, fundraising alongside SWAN supporters to rebuild a seismically safe reading space. Parents donated stonework and labor while SWAN covered engineering plans, timber, and youth volunteer stipends.",
-      "Today, over 320 students borrow books weekly. The reading club now mentors younger students and hosts storytelling hours for families.",
-    ],
-  },
-  "maternal-care-caravan": {
-    tag: "Health",
-    title: "Maternal care on the move",
-    image: "/images/story-maternal.jpg",
-    body: [
-      "In remote Dhading, expectant mothers often walk for hours for prenatal checkups. SWAN’s mobile maternal caravan changes that reality.",
-      "Every two weeks, a team of nurses and midwives travels by jeep and foot to reach villages without clinics. They carry ultrasound equipment, prenatal vitamins, and safe birth kits.",
-      "Follow-ups show higher antenatal checkup rates and fewer preventable complications. New mothers say they now have a direct connection to care long after delivery.",
-    ],
-  },
-  "coop-leaders": {
-    tag: "Women’s Leadership",
-    title: "Co-ops fueling village economies",
-    image: "/images/story-coops.jpg",
-    body: [
-      "Across Lamjung and Kaski districts, women-led cooperatives are reshaping local economies with micro-grants and training backed by SWAN supporters.",
-      "The cooperatives choose the ventures—goat rearing, tailoring, seed banks—and manage transparent repayment schedules. Profits are reinvested into new members.",
-      "Over 71 enterprises have launched since 2021, generating livelihoods while keeping skills and profits anchored in their own villages.",
-    ],
-  },
-} as const;
+import { computed, onBeforeUnmount, ref, watch } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+import { getStory, getStories } from "@/lib/content";
+import { track } from "@/plugins/analytics";
 
 const route = useRoute();
-const story = computed(() => stories[(route.params.slug as keyof typeof stories) ?? ""]);
+const router = useRouter();
+const stories = getStories();
+
+const story = computed(() => getStory((route.params.slug as string) ?? ""));
+const storyIndex = computed(() => stories.findIndex((item) => item.slug === (route.params.slug as string)));
+const previousStory = computed(() => (storyIndex.value > 0 ? stories[storyIndex.value - 1] : undefined));
+const nextStory = computed(() =>
+  storyIndex.value >= 0 && storyIndex.value < stories.length - 1 ? stories[storyIndex.value + 1] : undefined
+);
+
+const shareFeedback = ref<string | null>(null);
+const feedbackTimeout = ref<number | null>(null);
+const trackedSlug = ref<string | null>(null);
+const heroLoaded = ref(false);
+
+const formattedDate = computed(() =>
+  story.value ? new Date(story.value.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : ""
+);
+
+const shareUrl = computed(() => {
+  if (typeof window === "undefined") return "";
+  return `${window.location.origin}${router.resolve({ name: "story", params: { slug: route.params.slug } }).href}`;
+});
+
+const clearFeedback = () => {
+  if (feedbackTimeout.value) {
+    window.clearTimeout(feedbackTimeout.value);
+    feedbackTimeout.value = null;
+  }
+};
+
+const setFeedback = (message: string) => {
+  shareFeedback.value = message;
+  clearFeedback();
+  feedbackTimeout.value = window.setTimeout(() => {
+    shareFeedback.value = null;
+    feedbackTimeout.value = null;
+  }, 2500);
+};
+
+const copyLink = async () => {
+  if (!shareUrl.value) return;
+  try {
+    await navigator.clipboard.writeText(shareUrl.value);
+    setFeedback("Link copied to clipboard");
+    story.value && track("story_share", { slug: story.value.slug, method: "copy" });
+  } catch (error) {
+    setFeedback("Copy failed. Please try again.");
+  }
+};
+
+const shareTwitter = () => {
+  if (!story.value || !shareUrl.value) return;
+  const intentUrl = new URL("https://twitter.com/intent/tweet");
+  intentUrl.searchParams.set("text", story.value.title);
+  intentUrl.searchParams.set("url", shareUrl.value);
+  window.open(intentUrl.toString(), "_blank", "noopener");
+  track("story_share", { slug: story.value.slug, method: "twitter" });
+};
+
+watch(
+  story,
+  (value, previous) => {
+    if (!value) {
+      ElMessage.warning("Story not found.");
+      router.replace({ name: "stories" });
+      return;
+    }
+    heroLoaded.value = false;
+    if (trackedSlug.value !== value.slug) {
+      track("story_read", { slug: value.slug, category: value.tag });
+      trackedSlug.value = value.slug;
+    }
+  },
+  { immediate: true }
+);
+
+onBeforeUnmount(() => {
+  clearFeedback();
+});
 </script>
 
 <template>
-  <section class="py-12 sm:py-16">
-    <div class="container-irr space-y-6" v-if="story">
-      <RouterLink to="/stories" class="text-sm text-brand-600 hover:text-brand-800">← Back to stories</RouterLink>
-      <span class="pill border-brand-200 text-brand-700 self-start">{{ story.tag }}</span>
-      <h1 class="font-heading text-3xl sm:text-4xl text-brand-900">{{ story.title }}</h1>
-      <img :src="story.image" :alt="story.title" class="w-full rounded-2xl shadow-card object-cover max-h-[420px]" />
-      <article class="space-y-4 text-slate-700 leading-relaxed">
-        <p v-for="(paragraph, index) in story.body" :key="index">{{ paragraph }}</p>
-      </article>
+  <section v-if="story" class="pb-16">
+    <div class="bg-white/80 border-b border-slate-200">
+      <div class="container-irr py-4">
+        <RouterLink to="/stories" class="text-sm text-brand-600 hover:text-brand-800">← Back to stories</RouterLink>
+      </div>
     </div>
 
-    <div v-else class="container-irr py-16 text-center">
-      <p class="text-slate-600">Story not found. <RouterLink to="/stories" class="text-brand-600">Return to stories</RouterLink>.</p>
+    <div class="container-irr max-w-4xl mx-auto py-8 space-y-6 text-center">
+      <span class="pill bg-brand-50 border-brand-200 text-brand-700 self-center w-fit">{{ story.tag }}</span>
+      <h1 class="font-heading text-4xl sm:text-5xl text-brand-900 leading-tight">{{ story.title }}</h1>
+      <p class="text-sm text-slate-500">{{ formattedDate }}</p>
+    </div>
+
+    <div class="container-irr max-w-5xl mx-auto">
+      <div class="relative overflow-hidden rounded-3xl aspect-[16/9] bg-slate-200">
+        <div :class="['absolute inset-0 transition-opacity duration-500', heroLoaded ? 'opacity-0' : 'img-shell']"></div>
+        <img
+          :src="story.image"
+          :alt="story.title"
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+          @load="heroLoaded = true"
+        />
+      </div>
+    </div>
+
+    <div class="container-irr max-w-3xl mx-auto mt-10 space-y-10">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-6">
+        <div class="flex gap-3">
+          <button type="button" class="btn btn-primary" @click="copyLink">Copy link</button>
+          <button type="button" class="btn" @click="shareTwitter">Share to X</button>
+        </div>
+        <p v-if="shareFeedback" class="text-xs text-slate-500">{{ shareFeedback }}</p>
+      </div>
+
+      <article class="prose prose-slate max-w-none">
+        <p v-for="(paragraph, index) in story.body" :key="index">{{ paragraph }}</p>
+      </article>
+
+      <nav class="flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
+        <RouterLink
+          v-if="previousStory"
+          :to="{ name: 'story', params: { slug: previousStory.slug } }"
+          class="text-brand-600 hover:text-brand-800"
+        >
+          ← Previous: {{ previousStory.title }}
+        </RouterLink>
+        <RouterLink
+          v-if="nextStory"
+          :to="{ name: 'story', params: { slug: nextStory.slug } }"
+          class="text-brand-600 hover:text-brand-800 sm:ml-auto"
+        >
+          Next: {{ nextStory.title }} →
+        </RouterLink>
+      </nav>
+    </div>
+  </section>
+
+  <section v-else class="py-16">
+    <div class="container-irr text-center space-y-3">
+      <h1 class="font-heading text-3xl text-brand-900">Story not found</h1>
+      <RouterLink to="/stories" class="text-brand-600 hover:text-brand-800">Return to stories</RouterLink>
     </div>
   </section>
 </template>
