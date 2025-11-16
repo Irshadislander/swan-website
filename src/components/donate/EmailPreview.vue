@@ -4,7 +4,7 @@
       <h2 class="font-heading text-xl text-brand-900">Email preview (dev only)</h2>
       <span class="text-xs text-slate-500">Sent to {{ donation.email }}</span>
     </div>
-    <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+    <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white">
       <header class="bg-brand-600 text-white py-4 px-6">
         <h3 class="font-heading text-lg">Thank you for supporting SWAN</h3>
       </header>
@@ -22,7 +22,7 @@
         <p>If you have any questions, reply to this email or contact hello@swan.org.</p>
         <p>With gratitude,<br />The SWAN Team</p>
       </main>
-      <footer class="bg-slate-100 text-xs text-slate-500 px-6 py-4">
+      <footer class="bg-gray-100 text-xs text-slate-500 px-6 py-4">
         SWAN · Kathmandu, Nepal · Students Working Against Neglect
       </footer>
     </div>

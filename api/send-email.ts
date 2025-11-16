@@ -12,7 +12,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const to = process.env.CONTACT_TO;
 
     if (!key || !to) {
-      return res.status(200).json({ ok: false, mock: true });
+      return res.status(500).json({ ok: false, error: "Email service not configured." });
     }
 
     const response = await fetch("https://api.resend.com/emails", {

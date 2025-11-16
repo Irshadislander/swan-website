@@ -1,6 +1,6 @@
 <template>
   <article
-    :class="['break-inside-avoid rounded-2xl bg-white shadow-card border border-slate-200 overflow-hidden flex flex-col', $attrs.class]
+    :class="['break-inside-avoid rounded-2xl bg-white shadow-card border border-gray-200 overflow-hidden flex flex-col', $attrs.class]
     "
     @mouseenter="emit('prefetch')"
     @focusin="emit('prefetch')"

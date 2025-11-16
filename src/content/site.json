@@ -4,18 +4,210 @@
     "tagline": "Students Working Against Neglect"
   },
   "nav": {
+    "alert": {
+      "message": "Emergency health caravans are active across Siraha right now.",
+      "linkLabel": "Give to the emergency fund",
+      "href": "/emergency-response"
+    },
+    "utilities": [
+      { "label": "Search", "type": "search", "icon": "search" },
+      { "label": "Donor portal", "href": "https://donors.swan.org", "icon": "users", "external": true }
+    ],
     "primary": [
-      { "label": "About", "href": "/about" },
+      {
+        "label": "Urgent",
+        "href": "/urgent",
+        "cols": [
+          {
+            "title": "Active emergencies",
+            "links": [
+              { "label": "Gaza Emergency Fund", "href": "/urgent#gaza", "description": "Food boxes, medical aid, and trauma care." },
+              { "label": "Sudan Relief", "href": "/urgent#sudan", "description": "Mobile health teams for displaced families." },
+              { "label": "Nepal Flood Response", "href": "/urgent#nepal", "description": "Shelter kits and psychosocial support." },
+              { "label": "USA Relief Fund", "href": "/urgent#usa", "description": "Storm recovery in immigrant communities." }
+            ]
+          },
+          {
+            "title": "Ways to help now",
+            "links": [
+              { "label": "Emergency donate", "href": "/donate?campaign=emergency" },
+              { "label": "Start a fundraiser", "href": "/stories", "description": "Share impact stories with your network." },
+              { "label": "Corporate matches", "href": "/contact", "description": "Coordinate rapid CSR support." }
+            ]
+          },
+          {
+            "title": "Crisis resources",
+            "links": [
+              { "label": "Situation briefs", "href": "/media#reports" },
+              { "label": "Volunteer deployments", "href": "/volunteer" },
+              { "label": "Press inquiries", "href": "/media#press" }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Our Work",
+        "href": "/our-work",
+        "cols": [
+          {
+            "title": "Education",
+            "href": "/causes/education",
+            "image": "/images/home/focus-education.jpg",
+            "summary": "Scholarships, study kits, and mentorship."
+          },
+          {
+            "title": "Community Health",
+            "href": "/causes/health",
+            "image": "/images/home/focus-health.jpg",
+            "summary": "Mobile nurses, prenatal care, and clinics."
+          },
+          {
+            "title": "Women’s Leadership",
+            "href": "/causes/empowerment",
+            "image": "/images/home/focus-women.jpg",
+            "summary": "Seed funding for women-led cooperatives."
+          },
+          {
+            "title": "Where we operate",
+            "links": [
+              { "label": "South Asia hubs", "href": "/our-work#south-asia" },
+              { "label": "Rural Nepal focus", "href": "/our-work#nepal" },
+              { "label": "Diaspora partnerships", "href": "/our-work#diaspora" }
+            ],
+            "summary": "Regional teams co-design every project."
+          }
+        ]
+      },
+      {
+        "label": "Get involved",
+        "href": "/volunteer",
+        "cols": [
+          {
+            "title": "Volunteer pathways",
+            "links": [
+              { "label": "Medical deployments", "href": "/volunteer", "description": "Support mobile clinics in remote wards." },
+              { "label": "Remote mentoring", "href": "/volunteer", "description": "Coach students on essays and interviews." },
+              { "label": "Story & media crew", "href": "/media", "description": "Help amplify community voices." }
+            ]
+          },
+          {
+            "title": "Give & advocate",
+            "links": [
+              { "label": "Donate", "href": "/donate" },
+              { "label": "Monthly giving", "href": "/donate?frequency=monthly" },
+              { "label": "Host an event", "href": "/contact", "description": "Coordinate a local fundraiser." }
+            ]
+          },
+          {
+            "title": "More ways to give",
+            "links": [
+              { "label": "Ways to give", "href": "/ways-to-give" },
+              { "label": "Matching gifts", "href": "/ways-to-give#matching" }
+            ]
+          },
+          {
+            "title": "Careers & internships",
+            "links": [
+              { "label": "Open roles", "href": "/careers" },
+              { "label": "Partner with us", "href": "/contact" }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Media",
+        "href": "/media",
+        "cols": [
+          {
+            "title": "Featured stories",
+            "links": [
+              { "label": "Field notes", "href": "/stories" },
+              { "label": "Impact reports", "href": "/media#reports" },
+              { "label": "Podcasts & webinars", "href": "/media#podcasts" }
+            ]
+          },
+          {
+            "title": "Press resources",
+            "links": [
+              { "label": "Press kit", "href": "/media#press" },
+              { "label": "Media contact", "href": "/media#press" },
+              { "label": "Brand guidelines", "href": "/media#brand" }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Zakat",
+        "href": "/zakat",
+        "cols": [
+          {
+            "title": "Calculate",
+            "links": [
+              { "label": "Zakat calculator", "href": "/zakat#calculator" },
+              { "label": "Zakat al-Fitr", "href": "/zakat#fitr" }
+            ]
+          },
+          {
+            "title": "Ways to fulfill",
+            "links": [
+              { "label": "Give online", "href": "/donate?campaign=zakat" },
+              { "label": "Offline instructions", "href": "/zakat#offline" },
+              { "label": "Sponsor an orphan", "href": "/orphan-sponsorship" }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "About",
+        "href": "/about",
+        "cols": [
+          {
+            "title": "Who we are",
+            "links": [
+              { "label": "Mission & history", "href": "/about" },
+              { "label": "Leadership", "href": "/about#leadership" },
+              { "label": "Financials", "href": "/media#reports" }
+            ]
+          },
+          {
+            "title": "Support",
+            "links": [
+              { "label": "FAQ", "href": "/faq" },
+              { "label": "Careers", "href": "/careers" },
+              { "label": "Contact", "href": "/contact" }
+            ]
+          }
+        ]
+      },
       {
         "label": "Causes",
         "href": "/causes",
         "cols": [
-          { "title": "Education", "href": "/causes/education", "image": "/images/home/focus-education.jpg" },
-          { "title": "Community Health", "href": "/causes/health", "image": "/images/home/focus-health.jpg" },
-          { "title": "Women’s Leadership", "href": "/causes/empowerment", "image": "/images/home/focus-women.jpg" }
+          {
+            "title": "Education",
+            "href": "/causes/education",
+            "image": "/images/home/focus-education.jpg",
+            "summary": "Scholarships, study kits, and mentorship."
+          },
+          {
+            "title": "Community Health",
+            "href": "/causes/health",
+            "image": "/images/home/focus-health.jpg",
+            "summary": "Mobile nurses, prenatal care, and clinics."
+          },
+          {
+            "title": "Women’s Leadership",
+            "href": "/causes/empowerment",
+            "image": "/images/home/focus-women.jpg",
+            "summary": "Seed funding for women-led cooperatives."
+          }
         ]
       },
       { "label": "Stories", "href": "/stories" },
+      { "label": "Regions", "href": "/regions" },
+      { "label": "Advocacy", "href": "/advocacy" },
+      { "label": "Stock donations", "href": "/stock-donations" },
+      { "label": "Ways to give", "href": "/ways-to-give" },
       { "label": "Volunteer", "href": "/volunteer" },
       { "label": "Contact", "href": "/contact" }
     ],
@@ -23,20 +215,13 @@
   },
   "focusAreas": [
     {
-      "slug": "education",
-      "badge": "ED",
-      "title": "Education Access",
-      "blurb": "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
-      "stat": "92% of SWAN scholars graduated secondary school last year.",
-      "to": "/causes/education"
-    },
-    {
       "slug": "health",
       "badge": "HE",
       "title": "Community Health",
       "blurb": "Mobile health camps and women’s wellness programs with trusted local nurses.",
       "stat": "9,500+ medical consultations provided in remote districts.",
-      "to": "/causes/health"
+      "to": "/causes/health",
+      "image": "/images/projects/health-camp-01.jpg"
     },
     {
       "slug": "empowerment",
@@ -44,17 +229,65 @@
       "title": "Women’s Leadership",
       "blurb": "Micro-grants and trainings for women-led cooperatives focused on livelihoods.",
       "stat": "71 new women-led enterprises incubated since 2021.",
-      "to": "/causes/empowerment"
+      "to": "/causes/empowerment",
+      "image": "/images/projects/women-supply-drive-01.jpg"
+    },
+    {
+      "slug": "education",
+      "badge": "ED",
+      "title": "Education Access",
+      "blurb": "Scholarships, safe classrooms, and mentorship for rural students to stay in school.",
+      "stat": "92% of SWAN scholars graduated secondary school last year.",
+      "to": "/causes/education",
+      "gallery": [
+        { "src": "/images/projects/health-camp-01.jpg", "alt": "SWAN volunteer distributing care packs to children seated at a rural madrasa." },
+        { "src": "/images/projects/women-supply-drive-01.jpg", "alt": "Parent receiving a SWAN backpack during school readiness drive." },
+        { "src": "/images/projects/girls-leadership-01.jpg", "alt": "Students standing with their new SWAN backpacks after a leadership session." }
+      ]
     }
   ],
   "hero": {
     "eyebrow": "Grassroots impact in Nepal",
-    "title": "Because a student’s dream should never be out of reach.",
-    "body": "SWAN teams travel deep into rural Nepal to deliver scholarships, women-led cooperatives, and mobile health camps — all in partnership with the communities we serve.",
+    "slides": [
+      {
+        "id": "education",
+        "title": "Because a student’s dream should never be out of reach.",
+        "copy": "SWAN teams travel deep into rural Nepal to deliver scholarships, women-led cooperatives, and mobile health camps — all in partnership with the communities we serve.",
+        "image": "/images/home/hero-1.jpg",
+        "alt": "Children in Nepal reading books together.",
+        "kicker": "Education access",
+        "badge": "Siraha • Nepal",
+        "highlight": "Emergency scholarships and transport stipends help girls finish exam season.",
+        "primaryCta": { "label": "Fund scholarships", "to": "/donate?campaign=education" },
+        "secondaryCta": { "label": "See education plan", "to": "/causes/education" }
+      },
+      {
+        "id": "health",
+        "title": "Mobile nurses trek to the hardest-to-reach wards.",
+        "copy": "Support health camps that bring prenatal care, screenings, and lifesaving medicine to villages hours from the nearest clinic.",
+        "image": "/images/home/hero-2.jpg",
+        "alt": "SWAN health volunteer providing care to a family.",
+        "kicker": "Mobile health",
+        "badge": "Madhesh Province",
+        "highlight": "Nurses hike for hours with prenatal kits, vaccines, and health counseling.",
+        "primaryCta": { "label": "Stock the clinic", "to": "/donate?campaign=health" },
+        "secondaryCta": { "label": "Health response", "to": "/causes/health" }
+      },
+      {
+        "id": "empowerment",
+        "title": "Women-led cooperatives keep livelihoods local.",
+        "copy": "Back entrepreneurs launching seed banks and training hubs so profits stay with the women who lead them.",
+        "image": "/images/home/hero-3.jpg",
+        "alt": "Women leaders smiling and working together.",
+        "kicker": "Women’s leadership",
+        "badge": "Lamjung",
+        "highlight": "Seed funding and coaching turn co-ops into steady jobs for women.",
+        "primaryCta": { "label": "Back cooperatives", "to": "/donate?campaign=women" },
+        "secondaryCta": { "label": "See women’s work", "to": "/causes/empowerment" }
+      }
+    ],
     "primaryCta": { "label": "Donate now", "to": "/donate" },
     "secondaryCta": { "label": "Why SWAN?", "to": "/about" },
-    "image": "/images/cause-education.jpg",
-    "imageAlt": "Students studying together in Nepal",
     "stats": [
       { "value": 5200, "suffix": "+", "label": "Students reached" },
       { "value": 26, "suffix": "", "label": "Health camps delivered" },
@@ -79,11 +312,355 @@
       }
     ]
   },
+  "projects": {
+    "title": "Health & women-led impact on the ground",
+    "body": "Three recent distributions that kept families healthy, daughters learning, and mothers leading change across Siraha.",
+    "items": [
+      {
+        "title": "Mobile health camp & medicine distribution",
+        "description": "Local health workers joined SWAN to deliver primary care checkups, vitamins, and health counseling for children and elders.",
+        "image": "/images/projects/health-camp-01.jpg",
+        "alt": "SWAN volunteer handing medicine and notebooks to children during a rural health camp.",
+        "location": "Siraha-16, Madhesh Province",
+        "date": "Aug 2024"
+      },
+      {
+        "title": "Women-led supply drive for school return",
+        "description": "Mothers received backpacks stocked with sanitary supplies so their daughters could attend school confidently through the monsoon.",
+        "image": "/images/projects/women-supply-drive-01.jpg",
+        "alt": "Mother receiving a SWAN backpack from the distribution team.",
+        "location": "Siraha-16, Madhesh Province",
+        "date": "Aug 2024"
+      },
+      {
+        "title": "Girls’ mentorship circle and leadership pledge",
+        "description": "Community mentors rallied girls to stay in school, handing out study kits and outlining scholarships backed by SWAN donors.",
+        "image": "/images/projects/girls-leadership-01.jpg",
+        "alt": "Group of girls standing with SWAN backpacks after a leadership session.",
+        "location": "Siraha-16, Madhesh Province",
+        "date": "Aug 2024"
+      }
+    ]
+  },
   "cta": {
     "title": "Join the SWAN collective",
     "body": "Monthly donors fund emergency scholarships and keep health camps on the road year-round.",
     "primaryCta": { "label": "Give monthly", "to": "/donate" },
     "secondaryCta": { "label": "Volunteer", "to": "/volunteer" }
+  },
+  "donation": {
+    "campaigns": [
+      {
+        "slug": "ambulance",
+        "tag": "Urgent",
+        "categories": ["Urgent", "Health"],
+        "title": "Ambulance & emergency transport",
+        "summary": "Keep SWAN’s field ambulance fueled and stocked so mobile teams can reach remote wards with lifesaving care.",
+        "body": "Your gift fuels ambulance transport, restocks emergency medicines, and funds drivers who respond to late-night calls in Nepal’s hardest-to-reach wards.",
+        "highlights": [
+          "Fuel and maintenance for 200km+ weekly routes",
+          "Emergency kits restocked every deployment",
+          "24/7 driver and nurse standby for high-need cases"
+        ],
+        "image": "/images/projects/health-camp-01.jpg",
+        "cta": { "label": "Fund the ambulance", "to": "/donate?campaign=ambulance" },
+        "secondaryCta": { "label": "See field log", "to": "/funds/ambulance" }
+      },
+      {
+        "slug": "highest-need",
+        "tag": "Relief",
+        "categories": ["Urgent"],
+        "title": "Highest-need response fund",
+        "summary": "Let SWAN deploy your gift to the most urgent classrooms, clinics, or cooperatives without delay.",
+        "body": "When disasters strike or a partner signals an urgent shortage, this flexible fund keeps nurses, teachers, and women leaders moving within hours.",
+        "highlights": [
+          "Rapid response within 12 hours of an alert",
+          "Covers gaps when designated funds run low",
+          "Monthly dashboards show every deployment"
+        ],
+        "image": "/images/home/hero-3.jpg",
+        "cta": { "label": "Give where needed most", "to": "/donate?campaign=highest" },
+        "secondaryCta": { "label": "See recent deployments", "to": "/funds/highest-need" }
+      },
+      {
+        "slug": "zakat-general",
+        "tag": "Zakat",
+        "categories": ["Zakat"],
+        "title": "Give Zakat",
+        "summary": "Fulfill your Zakat obligation by backing scholars, widows, and medical aid across Nepal and beyond.",
+        "body": "Zakat funds prioritize families with little to no income, channeling support into food, education stipends, and health care.",
+        "highlights": [
+          "Verified cases reviewed with local imams",
+          "Digital receipts confirming each disbursement",
+          "Option to dedicate to a loved one"
+        ],
+        "image": "/images/projects/girls-leadership-01.jpg",
+        "cta": { "label": "Calculate & give", "to": "/donate?campaign=zakat" },
+        "secondaryCta": { "label": "Zakat guidance", "to": "/funds/zakat-general" }
+      },
+      {
+        "slug": "zakat-fitr",
+        "tag": "Zakat",
+        "categories": ["Zakat"],
+        "title": "Zakat al-Fitr",
+        "summary": "Ensure families receive staple food before Eid by sending Zakat al-Fitr through SWAN.",
+        "body": "Your gift is converted to food parcels before the Eid prayer so everyone can celebrate with dignity.",
+        "highlights": [
+          "Delivery completed before Eid morning",
+          "Rice, lentils, oil, and dates in each parcel",
+          "Works for families in Nepal and the diaspora"
+        ],
+        "image": "/images/projects/health-camp-01.jpg",
+        "cta": { "label": "Give Zakat al-Fitr", "to": "/donate?campaign=zakat-fitr" },
+        "secondaryCta": { "label": "Distribution details", "to": "/funds/zakat-fitr" }
+      },
+      {
+        "slug": "orphans",
+        "tag": "Orphans",
+        "categories": ["Orphans", "Education"],
+        "title": "Sponsor an orphan",
+        "summary": "Monthly sponsorships cover school fees, meals, and counseling for orphaned students.",
+        "body": "We coordinate with guardians to cover essentials, mentorship, and emergency needs so every child stays in school.",
+        "highlights": [
+          "Monthly reports on the student you sponsor",
+          "Emergency support available year-round",
+          "Connections to mentorship clubs"
+        ],
+        "image": "/images/projects/women-supply-drive-01.jpg",
+        "cta": { "label": "Sponsor a child", "to": "/donate?campaign=orphans" },
+        "secondaryCta": { "label": "Meet students", "to": "/funds/orphans" }
+      }
+    ],
+    "methods": [
+      {
+        "tag": "Bank transfer",
+        "title": "Domestic transfer (Nepal)",
+        "summary": "Send NPR directly to SWAN’s account for zero processing fees. Share your receipt and we’ll confirm within one business day.",
+        "details": [
+          "Bank: NIC Asia • Branch: Lagankhel",
+          "Account name: SWAN Nepal",
+          "Account #: 02456789012345",
+          "SWIFT: NICASNBAXXX"
+        ],
+        "cta": { "label": "Email transfer slip", "href": "mailto:give@swan.org?subject=Bank%20transfer%20confirmation" }
+      },
+      {
+        "tag": "Corporate",
+        "title": "Employer & corporate matches",
+        "summary": "We partner with CSR teams to match donations, run giving days, or sponsor women-led co-ops.",
+        "details": [
+          "Custom impact reporting every quarter",
+          "Field visits and volunteer days available",
+          "Dedicated partnership manager"
+        ],
+        "cta": { "label": "Schedule a call", "href": "mailto:partnerships@swan.org?subject=Corporate%20match" }
+      },
+      {
+        "tag": "Checks & offline",
+        "title": "Checks & offline giving",
+        "summary": "Mail checks or drop donations at our Kathmandu or Pokhara offices. We’ll issue digital receipts.",
+        "details": [
+          "SWAN Nepal • Dillibazar, Kathmandu",
+          "Hotline: +977-980-200-1122",
+          "Office hours: Mon–Fri, 9am–5pm NPT"
+        ],
+        "cta": { "label": "Get drop-off directions", "href": "mailto:give@swan.org?subject=Offline%20donation" }
+      }
+    ],
+    "contact": {
+      "title": "Talk to our giving desk",
+      "body": "Need banking instructions, tax docs, or want to dedicate a gift? Our stewardship team will respond within one business day.",
+      "email": "give@swan.org",
+      "phone": "+977 980-200-1122",
+      "hours": "Mon–Fri • 9am–5pm NPT"
+    }
+  },
+  "events": [
+    {
+      "title": "Palestine Tour 2025 / With Love Tour",
+      "date": "Nov 2025",
+      "location": "Multiple US cities",
+      "summary": "Join solidarity evenings supporting Gaza, Syria, and Sudan with SWAN storytellers and partners.",
+      "link": "/ways-to-give#events"
+    },
+    {
+      "title": "Our People, Our Pakistan",
+      "date": "Oct 2025",
+      "location": "Virtual",
+      "summary": "Hear updates from community brigades rebuilding schools after floods and learn how to help.",
+      "link": "/ways-to-give#events"
+    },
+    {
+      "title": "Corporate matching webinar",
+      "date": "Dec 5",
+      "location": "Online",
+      "summary": "CSR teams learn how to activate matches and employee engagement for SWAN programs.",
+      "link": "/ways-to-give#corporate"
+    }
+  ],
+  "matchingGifts": {
+    "title": "Multiply your impact with matching gifts",
+    "body": "Register your donation with your employer’s matching platform and we’ll confirm the impact within one business day.",
+    "cta": { "label": "Request matching info", "to": "/ways-to-give#matching" },
+    "secondary": { "label": "Download toolkit", "href": "https://example.org/matching.pdf" }
+  },
+  "moreWays": [
+    {
+      "slug": "corporate",
+      "title": "Corporate matches",
+      "summary": "Work with our partnerships team to match employee donations or sponsor a program.",
+      "cta": { "label": "Start a match", "to": "/ways-to-give#corporate" }
+    },
+    {
+      "slug": "challenges",
+      "title": "Adventure challenges",
+      "summary": "Host a trek, marathon, or local challenge to rally donations for urgent appeals.",
+      "cta": { "label": "Plan a challenge", "to": "/ways-to-give#challenges" }
+    },
+    {
+      "slug": "vehicles",
+      "title": "Vehicle donations",
+      "summary": "Donate a vehicle to fund mobile clinics and health caravans.",
+      "cta": { "label": "Give a vehicle", "to": "/ways-to-give#vehicles" }
+    },
+    {
+      "slug": "wills",
+      "title": "Legacy & wills",
+      "summary": "Include SWAN in your will or trust; we’ll share sample language.",
+      "cta": { "label": "Legacy info", "to": "/ways-to-give#wills" }
+    },
+    {
+      "slug": "grants",
+      "title": "Grants & foundations",
+      "summary": "Partner with SWAN through foundation grants or CSR giving.",
+      "cta": { "label": "Pitch a grant", "to": "/ways-to-give#grants" }
+    }
+  ],
+  "mediaResources": {
+    "press": [
+      {
+        "title": "IRUSA in the News",
+        "summary": "Roundup of coverage featuring SWAN field partners and diaspora leaders.",
+        "href": "/media#press",
+        "date": "Oct 2025"
+      },
+      {
+        "title": "Press release — Mobile nurses deploy",
+        "summary": "Details on the latest health caravans and how donors can help.",
+        "href": "/media#press",
+        "date": "Sep 2025"
+      }
+    ],
+    "podcasts": [
+      {
+        "title": "What a Relief! with SWAN volunteers",
+        "summary": "Hear from nurses trekking to remote wards and the donors who keep them moving.",
+        "href": "/media#podcasts"
+      },
+      {
+        "title": "Diaspora fundraising playbook",
+        "summary": "Strategies for mobilizing diaspora networks for urgent appeals.",
+        "href": "/media#podcasts"
+      }
+    ],
+    "reports": [
+      {
+        "title": "2024 Impact report",
+        "summary": "Program metrics, financials, and stories from each district.",
+        "href": "https://example.org/reports/2024.pdf"
+      },
+      {
+        "title": "SWAN financial statements",
+        "summary": "Audited statements and compliance documents.",
+        "href": "https://example.org/reports/financials.pdf"
+      }
+    ]
+  },
+  "regionsOverview": [
+    {
+      "id": "madhesh",
+      "title": "Madhesh Province",
+      "body": "Mobile nurses, scholarships, and women-led cooperatives anchor our work across Siraha and bordering districts.",
+      "stats": "12 partner wards • 4 mobile clinics"
+    },
+    {
+      "id": "gandaki",
+      "title": "Gandaki & Lamjung",
+      "body": "Earthquake recovery, youth leadership camps, and new libraries keep students on track.",
+      "stats": "38 schools rebuilt • 1,200 scholars"
+    },
+    {
+      "id": "diaspora",
+      "title": "Diaspora hubs",
+      "body": "Fundraising teams in the US, Gulf, and Europe power emergency appeals and keep programs responsive.",
+      "stats": "15+ volunteer chapters"
+    }
+  ],
+  "advocacy": {
+    "title": "Advocacy & campaigns",
+    "body": "Raise your voice for equitable aid, education access, and policies that keep rural communities thriving.",
+    "actions": [
+      { "title": "Contact your representative", "summary": "Share SWAN briefs on rural education and women’s leadership.", "link": "/media#reports" },
+      { "title": "Host a listening session", "summary": "Invite SWAN partners to virtual briefings with your community.", "link": "/ways-to-give#challenges" },
+      { "title": "Join our policy network", "summary": "Receive alerts when key votes or regulations need grassroots input.", "link": "/contact" }
+    ]
+  },
+  "stockDonations": {
+    "title": "Give stock & appreciated assets",
+    "body": "Avoid capital gains and maximize impact by donating stocks, crypto, or securities directly to SWAN.",
+    "instructions": [
+      "Broker: Himalayan Brokerage • DTC 7799",
+      "Account name: SWAN Nepal Relief Fund",
+      "Account #: 002978456",
+      "Notify give@swan.org with the asset name and quantity"
+    ],
+    "benefits": [
+      "Receive a charitable deduction for the fair market value",
+      "Avoid capital gains tax on appreciated assets",
+      "Keep programs funded year-round with a single transfer"
+    ]
+  },
+  "zakat": {
+    "title": "Fulfill your Zakat with SWAN",
+    "body": "Support scholars, widows, and families across Nepal and the diaspora with transparent distribution.",
+    "nisab": {
+      "gold": 85,
+      "silver": 595,
+      "goldPricePerGram": 65,
+      "silverPricePerGram": 0.8
+    },
+    "assets": [
+      { "key": "cash", "label": "Cash & savings" },
+      { "key": "gold", "label": "Gold value" },
+      { "key": "silver", "label": "Silver value" },
+      { "key": "investments", "label": "Investments/stocks" },
+      { "key": "business", "label": "Business stock" },
+      { "key": "receivables", "label": "Money owed to you" }
+    ],
+    "fitr": {
+      "title": "Zakat al-Fitr",
+      "body": "Give before Eid prayer so every family has staple food. Suggested amount: $15 per person or equivalent in NPR.",
+      "cta": { "label": "Give Zakat al-Fitr", "to": "/donate?campaign=zakat-fitr" }
+    },
+    "offline": [
+      "Bank transfer: NIC Asia • Account #02456789012345 • SWIFT: NICASNBAXXX",
+      "Reference “ZAKAT” in the memo and email slip to give@swan.org.",
+      "For cash or check drop-off, visit our Kathmandu or Pokhara offices."
+    ]
+  },
+  "orphans": {
+    "title": "Sponsor an orphaned student",
+    "body": "Monthly sponsorships cover school fees, meals, and counseling with guardians across Nepal.",
+    "monthlyOptions": [
+      { "amount": 50, "label": "Essential support" },
+      { "amount": 85, "label": "Full education" },
+      { "amount": 120, "label": "Education + health" }
+    ],
+    "bullets": [
+      "Monthly reports from field coordinators",
+      "Emergency funds when families need urgent help",
+      "Mentorship clubs connecting sponsored students"
+    ]
   },
   "storiesPreview": {
     "title": "Stories from the field",

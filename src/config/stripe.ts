@@ -6,6 +6,18 @@ export const CURRENCIES: { code: CurrencyCode; symbol: string; label: string }[]
   { code: 'INR', symbol: '₹', label: 'INR — Indian Rupee' },
 ]
 
+const getEnvPrice = (currency: CurrencyCode, schedule: 'ONETIME' | 'MONTHLY', amount: number) => {
+  const key = `VITE_STRIPE_PRICE_${currency}_${schedule}_${amount}`
+  const env = import.meta.env as Record<string, string | undefined>
+  return env[key] ?? ''
+}
+
+const buildPriceMap = (currency: CurrencyCode, schedule: 'ONETIME' | 'MONTHLY', amounts: number[]) =>
+  amounts.reduce<Record<number, string>>((acc, amount) => {
+    acc[amount] = getEnvPrice(currency, schedule, amount)
+    return acc
+  }, {})
+
 export const STRIPE_PRICES: Record<
   CurrencyCode,
   {
@@ -14,46 +26,16 @@ export const STRIPE_PRICES: Record<
   }
 > = {
   USD: {
-    oneTime: {
-      25: '',
-      50: '',
-      100: '',
-      250: '',
-    },
-    monthly: {
-      10: '',
-      25: '',
-      50: '',
-      100: '',
-    },
+    oneTime: buildPriceMap('USD', 'ONETIME', [25, 50, 100, 250]),
+    monthly: buildPriceMap('USD', 'MONTHLY', [10, 25, 50, 100]),
   },
   NPR: {
-    oneTime: {
-      1000: '',
-      2500: '',
-      5000: '',
-      10000: '',
-    },
-    monthly: {
-      800: '',
-      1500: '',
-      2500: '',
-      5000: '',
-    },
+    oneTime: buildPriceMap('NPR', 'ONETIME', [1000, 2500, 5000, 10000]),
+    monthly: buildPriceMap('NPR', 'MONTHLY', [800, 1500, 2500, 5000]),
   },
   INR: {
-    oneTime: {
-      500: '',
-      1000: '',
-      2500: '',
-      5000: '',
-    },
-    monthly: {
-      250: '',
-      500: '',
-      1000: '',
-      2500: '',
-    },
+    oneTime: buildPriceMap('INR', 'ONETIME', [500, 1000, 2500, 5000]),
+    monthly: buildPriceMap('INR', 'MONTHLY', [250, 500, 1000, 2500]),
   },
 }
 

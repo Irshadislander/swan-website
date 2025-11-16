@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="trail.length > 1" class="bg-white/70 border-b border-slate-200" aria-label="Breadcrumb">
+  <nav v-if="trail.length > 1" class="bg-white/70 border-b border-gray-200" aria-label="Breadcrumb">
     <ol class="container-irr flex flex-wrap items-center gap-2 py-3 text-sm text-slate-600">
       <li v-for="(crumb, index) in trail" :key="crumb.label" class="flex items-center gap-2">
         <RouterLink v-if="crumb.to" :to="crumb.to" class="hover:text-brand-700">{{ crumb.label }}</RouterLink>

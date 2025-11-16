@@ -65,7 +65,19 @@
           >
             <div class="relative h-full w-full">
               <div :class="['absolute inset-0', imageLoaded[index] ? 'opacity-0' : 'img-shell']" />
-              <picture>
+              <video
+                v-if="slide.video"
+                :poster="slide.video.poster ?? slide.image"
+                autoplay
+                muted
+                loop
+                playsinline
+                class="h-full w-full object-cover"
+                @loadeddata="markLoaded(index)"
+              >
+                <source :src="slide.video.src" type="video/mp4" />
+              </video>
+              <picture v-else>
                 <source :srcset="`${slide.image} 1x, ${slide.image} 2x`" media="(min-width: 1024px)" />
                 <img
                   :src="slide.image"
@@ -109,6 +121,10 @@ type Slide = {
   copy: string;
   image: string;
   alt: string;
+  video?: {
+    src: string;
+    poster?: string;
+  };
 };
 
 const hero = getSite().hero;
@@ -119,6 +135,10 @@ const slides: Slide[] = [
     title: "Scholarships keep students in class",
     copy: "Fund tutoring, safe classrooms, and mentorship so rural students can graduate on time.",
     image: "/images/home/hero-1.jpg",
+    video: {
+      src: "https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4",
+      poster: "/images/home/hero-1.jpg",
+    },
     alt: "SWAN students studying together",
   },
   {

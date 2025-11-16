@@ -30,12 +30,13 @@ const { heading, body } = defaultCopy[formType] ?? defaultCopy.support
 
 <template>
   <MainLayout>
-    <section class="py-16">
-      <div class="container-irr max-w-2xl text-center space-y-6">
-        <h1 class="font-heading text-3xl sm:text-4xl text-brand-900">
+    <section class="thanks-view">
+      <div class="container-irr max-w-3xl text-center space-y-6" data-animate="fade-up">
+        <p class="kicker">Thank you</p>
+        <h1 class="thanks-view__title">
           {{ props.title || heading }}
         </h1>
-        <p class="text-slate-600 text-lg">
+        <p class="thanks-view__body">
           {{ props.message || body }}
         </p>
         <RouterLink class="btn btn-gradient" to="/">
@@ -45,3 +46,22 @@ const { heading, body } = defaultCopy[formType] ?? defaultCopy.support
     </section>
   </MainLayout>
 </template>
+
+<style scoped>
+.thanks-view {
+  padding: 5rem 0;
+  background: radial-gradient(circle at top, rgba(34, 85, 230, 0.08), transparent 55%);
+}
+
+.thanks-view__title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.thanks-view__body {
+  font-size: 1.1rem;
+  color: #475569;
+}
+</style>

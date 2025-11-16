@@ -3,8 +3,11 @@ import { computed, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { createCheckout } from '@/api/payments'
 import { track } from '@/plugins/analytics'
-import { useRouter } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { CURRENCIES, STRIPE_PRICES, formatMoney, type CurrencyCode } from '@/config/stripe'
+import DonationCampaigns from '@/components/sections/DonationCampaigns.vue'
+import DonationMethods from '@/components/donate/DonationMethods.vue'
+import { getSite } from '@/lib/content'
 
 const frequencies: Array<{ label: string; value: 'once' | 'monthly' }> = [
   { label: 'One-time', value: 'once' },
@@ -37,6 +40,10 @@ const emailErrorId = 'donation-email-error'
 const loading = ref(false)
 
 const router = useRouter()
+
+const site = getSite()
+const zakat = site.zakat
+const orphans = site.orphans
 
 const whyPoints = [
   'Transparent reporting with open program budgets.',
@@ -228,7 +235,7 @@ async function submit() {
               :id="nameId"
               v-model="form.name"
               type="text"
-              class="w-full rounded-xl border border-slate-300 px-4 py-3 shadow-sm"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm"
               placeholder="Asha Tamang"
               :aria-describedby="nameError ? nameErrorId : undefined"
               autocomplete="name"
@@ -244,7 +251,7 @@ async function submit() {
               :id="emailId"
               v-model="form.email"
               type="email"
-              class="w-full rounded-xl border border-slate-300 px-4 py-3 shadow-sm"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm"
               placeholder="asha@swan.org"
               :aria-describedby="emailError ? emailErrorId : undefined"
               autocomplete="email"
@@ -287,4 +294,29 @@ async function submit() {
       </aside>
     </div>
   </section>
+
+  <section class="py-8">
+    <div class="container-irr grid gap-4 md:grid-cols-2">
+      <article v-for="helper in helpers" :key="helper.title" class="card space-y-2">
+        <h3 class="text-xl font-semibold text-brand-900">{{ helper.title }}</h3>
+        <p class="text-slate-600">{{ helper.body }}</p>
+        <RouterLink :to="helper.to" class="arrow-cta w-fit">Explore</RouterLink>
+      </article>
+    </div>
+  </section>
+
+  <DonationCampaigns />
+  <DonationMethods />
 </template>
+const helpers = [
+  {
+    title: 'Need Zakat help?',
+    body: 'Use our calculator, learn about Zakat al-Fitr, or see offline instructions before you give.',
+    to: '/zakat#calculator',
+  },
+  {
+    title: 'Sponsor an orphan',
+    body: orphans?.body ?? 'Monthly sponsorships keep students in school with meals and counseling.',
+    to: '/orphan-sponsorship',
+  },
+]

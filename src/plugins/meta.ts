@@ -2,6 +2,7 @@ import type { RouteLocationNormalized } from "vue-router";
 
 type MetaResolver = string | ((to: RouteLocationNormalized) => string | undefined);
 type FlagResolver = boolean | ((to: RouteLocationNormalized) => boolean | undefined) | undefined;
+type SchemaResolver = Record<string, unknown> | ((to: RouteLocationNormalized) => Record<string, unknown> | undefined);
 
 const SITE_URL = "https://swan.org";
 const DEFAULT_TITLE = "SWAN — Empowering lives in Nepal";
@@ -45,7 +46,7 @@ const removeMetaTag = (attr: "name" | "property", key: string) => {
   element?.remove();
 };
 
-const ensureLinkTag = (rel: string, href: string) => {
+const ensureLinkTag = (rel: string, href: string, attributes: Record<string, string> = {}) => {
   if (!isBrowser) return;
   let link = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
   if (!link) {
@@ -54,6 +55,25 @@ const ensureLinkTag = (rel: string, href: string) => {
     document.head.appendChild(link);
   }
   link.setAttribute("href", href);
+  Object.entries(attributes).forEach(([key, value]) => {
+    link?.setAttribute(key, value);
+  });
+};
+
+const ensureJsonLd = (schema?: Record<string, unknown>) => {
+  if (!isBrowser) return;
+  const existing = document.head.querySelector<HTMLScriptElement>('script[data-schema="page"]');
+  if (!schema) {
+    existing?.remove();
+    return;
+  }
+  const script = existing ?? document.createElement("script");
+  script.type = "application/ld+json";
+  script.dataset.schema = "page";
+  script.textContent = JSON.stringify(schema);
+  if (!existing) {
+    document.head.appendChild(script);
+  }
 };
 
 export const applyMeta = (to: RouteLocationNormalized) => {
@@ -63,6 +83,7 @@ export const applyMeta = (to: RouteLocationNormalized) => {
     description?: MetaResolver;
     image?: MetaResolver;
     noindex?: FlagResolver;
+    schema?: SchemaResolver;
   };
 
   const title = resolveMeta(meta?.title, to, DEFAULT_TITLE);
@@ -71,6 +92,7 @@ export const applyMeta = (to: RouteLocationNormalized) => {
   const absoluteImage = toAbsoluteUrl(image);
   const canonicalUrl = toAbsoluteUrl(to.fullPath || "/");
   const noindex = typeof meta?.noindex === "function" ? meta.noindex(to) : Boolean(meta?.noindex);
+  const schema = typeof meta?.schema === "function" ? meta.schema(to) : meta?.schema;
 
   document.title = title;
 
@@ -85,10 +107,22 @@ export const applyMeta = (to: RouteLocationNormalized) => {
   ensureMetaTag("name", "twitter:url", canonicalUrl);
 
   ensureLinkTag("canonical", canonicalUrl);
+  ensureLinkTag("alternate", `${SITE_URL}/feed.xml`, { type: "application/rss+xml" });
 
   if (noindex) {
     ensureMetaTag("name", "robots", "noindex,nofollow");
   } else {
     removeMetaTag("name", "robots");
   }
+
+  ensureJsonLd(
+    schema ?? {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: title,
+      description,
+      url: canonicalUrl,
+      image: absoluteImage,
+    }
+  );
 };

@@ -121,7 +121,7 @@ const handleOpen = (slug: string) => {
             v-if="loadingMore"
             v-for="index in skeletonCount"
             :key="`story-skeleton-${index}`"
-            class="mb-6 break-inside-avoid rounded-2xl bg-slate-200/60 h-72 animate-pulse"
+            class="mb-6 break-inside-avoid rounded-2xl bg-gray-200/60 h-72 animate-pulse"
           ></div>
         </div>
       </div>

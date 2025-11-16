@@ -3,7 +3,7 @@
     <el-form
       :model="quickForm"
       label-position="top"
-      class="grid gap-3 sm:grid-cols-2 md:grid-cols-[repeat(4,minmax(0,1fr))_auto] md:items-center"
+      class="grid gap-3 sm:grid-cols-2 md:grid-cols-[repeat(5,minmax(0,1fr))_auto] md:items-center"
     >
       <el-form-item label="Donation frequency" class="m-0">
         <el-select
@@ -64,6 +64,16 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="Email" class="m-0 md:col-span-2">
+        <el-input
+          v-model="quickForm.email"
+          placeholder="you@example.com"
+          type="email"
+          autocomplete="email"
+          :disabled="loading"
+        />
+      </el-form-item>
+
       <button
         type="button"
         class="btn btn-primary self-stretch flex items-center justify-center"
@@ -93,6 +103,7 @@ const quickForm = reactive({
   frequency: 'once' as 'once' | 'monthly',
   amount: 50,
   program: 'education',
+  email: '',
 })
 
 const loading = ref(false)
@@ -125,13 +136,19 @@ const donateLabel = computed(
 
 const handleSubmit = async () => {
   if (loading.value) return
+  const email = quickForm.email.trim()
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailPattern.test(email)) {
+    ElMessage.error('Enter a valid email for your receipt.')
+    return
+  }
   loading.value = true
   const frequency = quickForm.frequency === 'once' ? 'one-time' : 'monthly'
   const priceMap = STRIPE_PRICES[currency.value][contributionType.value]
   const priceId = priceMap[quickForm.amount] || null
   const payload = {
     name: 'Quick Donate',
-    email: 'quickdonate@swan.org',
+    email,
     amount: quickForm.amount,
     frequency,
     program: quickForm.program,

@@ -89,35 +89,34 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section v-if="story" class="pb-16">
-    <div class="bg-white/80 border-b border-slate-200">
-      <div class="container-irr py-4">
-        <RouterLink to="/stories" class="text-sm text-brand-600 hover:text-brand-800">← Back to stories</RouterLink>
+  <section v-if="story" class="story-detail">
+    <div class="story-detail__hero">
+      <div class="container-irr max-w-5xl mx-auto space-y-6" data-animate="fade-up">
+        <RouterLink to="/stories" class="story-detail__back">← Back to stories</RouterLink>
+        <span class="pill bg-white/15 border-white/30 text-white/90 w-fit">{{ story.tag }}</span>
+        <h1 class="story-detail__title">{{ story.title }}</h1>
+        <p class="story-detail__date">{{ formattedDate }}</p>
+      </div>
+      <div class="story-detail__image-wrap container-irr max-w-5xl mx-auto">
+        <div class="story-detail__image">
+          <div :class="['absolute inset-0 transition-opacity duration-500', heroLoaded ? 'opacity-0' : 'img-shell']"></div>
+          <img
+            :src="story.image"
+            :alt="story.title"
+            loading="lazy"
+            decoding="async"
+            @load="heroLoaded = true"
+          />
+        </div>
       </div>
     </div>
 
-    <div class="container-irr max-w-4xl mx-auto py-8 space-y-6 text-center">
-      <span class="pill bg-brand-50 border-brand-200 text-brand-700 self-center w-fit">{{ story.tag }}</span>
-      <h1 class="font-heading text-4xl sm:text-5xl text-brand-900 leading-tight">{{ story.title }}</h1>
-      <p class="text-sm text-slate-500">{{ formattedDate }}</p>
-    </div>
-
-    <div class="container-irr max-w-5xl mx-auto">
-      <div class="relative overflow-hidden rounded-3xl aspect-[16/9] bg-slate-200">
-        <div :class="['absolute inset-0 transition-opacity duration-500', heroLoaded ? 'opacity-0' : 'img-shell']"></div>
-        <img
-          :src="story.image"
-          :alt="story.title"
-          class="absolute inset-0 h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
-          @load="heroLoaded = true"
-        />
-      </div>
-    </div>
-
-    <div class="container-irr max-w-3xl mx-auto mt-10 space-y-10">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-6">
+    <div class="container-irr max-w-4xl mx-auto story-detail__body">
+      <div class="story-detail__share" data-animate="fade-up">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-brand-600">Share this story</p>
+          <p class="text-sm text-slate-500">Help spread the word about community-led impact.</p>
+        </div>
         <div class="flex gap-3">
           <button type="button" class="btn btn-primary" @click="copyLink">Copy link</button>
           <button type="button" class="btn" @click="shareTwitter">Share to X</button>
@@ -125,24 +124,26 @@ onBeforeUnmount(() => {
         <p v-if="shareFeedback" class="text-xs text-slate-500">{{ shareFeedback }}</p>
       </div>
 
-      <article class="prose prose-slate max-w-none">
+      <article class="story-detail__content" data-animate="fade-up">
         <p v-for="(paragraph, index) in story.body" :key="index">{{ paragraph }}</p>
       </article>
 
-      <nav class="flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
+      <nav class="story-detail__nav" data-animate="fade-up">
         <RouterLink
           v-if="previousStory"
           :to="{ name: 'story', params: { slug: previousStory.slug } }"
-          class="text-brand-600 hover:text-brand-800"
+          class="story-detail__pager"
         >
-          ← Previous: {{ previousStory.title }}
+          <span>Previous story</span>
+          <p>{{ previousStory.title }}</p>
         </RouterLink>
         <RouterLink
           v-if="nextStory"
           :to="{ name: 'story', params: { slug: nextStory.slug } }"
-          class="text-brand-600 hover:text-brand-800 sm:ml-auto"
+          class="story-detail__pager story-detail__pager--next"
         >
-          Next: {{ nextStory.title }} →
+          <span>Next story</span>
+          <p>{{ nextStory.title }}</p>
         </RouterLink>
       </nav>
     </div>
@@ -155,3 +156,127 @@ onBeforeUnmount(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.story-detail {
+  background: radial-gradient(circle at top, rgba(34, 85, 230, 0.08), transparent 55%);
+  padding-bottom: 4rem;
+}
+
+.story-detail__hero {
+  background: linear-gradient(135deg, #051b3b, #102a5c 45%, #0f172a 90%);
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.story-detail__back {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.story-detail__title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  line-height: 1.1;
+  max-width: 52ch;
+}
+
+.story-detail__date {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.story-detail__image-wrap {
+  margin-top: 2rem;
+}
+
+.story-detail__image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  aspect-ratio: 16 / 9;
+  background: rgba(15, 23, 42, 0.3);
+  box-shadow: 0 30px 60px rgba(5, 27, 59, 0.4);
+}
+
+.story-detail__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-detail__body {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.story-detail__share {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 1.5rem;
+  background: #fff;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: center;
+}
+
+.story-detail__content {
+  background: #fff;
+  border-radius: 2rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 2.25rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #0f172a;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+.story-detail__content p + p {
+  margin-top: 1.5rem;
+}
+
+.story-detail__nav {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.story-detail__pager {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 1.25rem;
+  background: #fff;
+  text-decoration: none;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.story-detail__pager span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #94a3b8;
+}
+
+.story-detail__pager p {
+  font-weight: 600;
+  color: #2255e6;
+}
+
+.story-detail__pager:hover {
+  border-color: rgba(34, 85, 230, 0.4);
+  transform: translateY(-2px);
+}
+
+.story-detail__pager--next {
+  text-align: right;
+}
+</style>

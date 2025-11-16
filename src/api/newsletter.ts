@@ -1,13 +1,16 @@
 export type Signup = { email: string; name?: string };
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function subscribe({ email, name }: Signup): Promise<{ ok: true } | { ok: false; error: string }> {
-  await delay(700);
-  if (!email.includes("@")) {
-    return { ok: false, error: "Please enter a valid email." };
+  const response = await fetch("/api/newsletter", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, name }),
+  });
+
+  if (!response.ok) {
+    return { ok: false, error: "Newsletter sign-up failed." };
   }
-  // TODO: integrate with real provider (Mailchimp/Elastic Email) via API proxy or edge function
-  console.info("newsletter-subscribe", { email, name });
-  return { ok: true };
+
+  const result = await response.json();
+  return result;
 }

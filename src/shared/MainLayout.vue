@@ -2,6 +2,7 @@
   <div class="min-h-screen flex flex-col bg-haze">
     <SkipToContent />
     <NavBar />
+    <EmergencyPopup />
     <Maintenance v-if="showMaintenance" />
     <Breadcrumbs v-if="!isHome" />
     <main id="main" role="main" tabindex="-1" class="flex-1">
@@ -22,6 +23,7 @@ import SkipToContent from "@/components/util/SkipToContent.vue";
 import Breadcrumbs from "@/components/util/Breadcrumbs.vue";
 import ErrorBoundary from "@/components/util/ErrorBoundary.vue";
 import Maintenance from "@/components/util/Maintenance.vue";
+import EmergencyPopup from "@/components/popups/EmergencyPopup.vue";
 
 const route = useRoute();
 const isHome = computed(() => route.name === "home");
